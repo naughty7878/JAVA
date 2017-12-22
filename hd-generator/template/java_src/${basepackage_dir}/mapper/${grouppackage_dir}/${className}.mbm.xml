@@ -1,0 +1,167 @@
+<#include "/macro.include"/>
+<#assign className = table.className>   
+<#assign classNameFirstLower = table.classNameFirstLower>   
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<#macro mapperEl value>${r"#{"}${value}}</#macro>
+<#macro mapperEl1 value>${r"${"}${value}}</#macro>
+<#macro mapperEl2 value>${r"#{item."}${value}}</#macro>
+<#macro namespace>${namespace_prefix}.</#macro>
+<mapper namespace="<@namespace/>${className}">
+
+    <resultMap id="${className}Map" type="${basepackage}.domain.${className}" extends="Entity.baseMap">
+        <#list table.notPkColumns as column>
+        <result property="${column.columnNameLower}" column="${column.sqlName}"/>
+        </#list>
+    </resultMap>
+    
+    <sql id="columns">
+        <![CDATA[
+        <#list table.columns as column>${column.sqlName}<#if column_has_next>, </#if></#list>
+        ]]>
+    </sql>
+    
+    <sql id="where">
+        <where>
+           <#list table.columns as column>
+           <#if column.isDateTimeColumn>
+           <if test="@Ognl@isNotEmpty(${column.columnNameFirstLower}Begin)">
+                AND ${column.sqlName} >= <@mapperEl column.columnNameFirstLower+"Begin"/>
+           </if>
+           <if test="@Ognl@isNotEmpty(${column.columnNameFirstLower}End)">
+                AND ${column.sqlName} &lt;= <@mapperEl column.columnNameFirstLower+"End"/>
+           </if>
+           <#else>
+           <if test="@Ognl@isNotEmpty(${column.columnNameFirstLower})">
+                AND ${column.sqlName} = <@mapperEl column.columnNameFirstLower/>
+            </if>
+           </#if>
+           </#list>            
+        </where>
+    </sql>
+    
+    <select id="getById" resultMap="${className}Map">
+        SELECT <include refid="columns" />
+        <![CDATA[
+            FROM
+                ${table.sqlName}
+            WHERE 
+                <#list table.compositeIdColumns as column>
+                ${column.sqlName} = <@mapperEl 'id'/> <#if column_has_next> AND </#if>
+                </#list>
+        ]]>
+    </select>
+    
+    <select id="search" resultMap="${className}Map">
+        SELECT
+            <include refid="columns" />
+        FROM
+            ${table.sqlName} 
+        <include refid="where"/>
+        <if test="@Ognl@isNotEmpty(sortBy)">
+            ORDER BY <@mapperEl1 'sortBy'/>
+        </if>
+        <if test="start gt -1 and end lt 10000">
+            LIMIT <@mapperEl 'start'/>, <@mapperEl 'end'/>
+        </if>
+    </select>
+        
+    <select id="getCount" resultType="long">
+        <![CDATA[
+            SELECT
+                count(1)
+            FROM
+                ${table.sqlName}
+        ]]>
+        <include refid="where"/>
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="${table.idColumn.columnNameFirstLower}">
+        <![CDATA[
+            INSERT INTO ${table.sqlName} (
+            <#list table.notPkColumns as column>
+                ${column.sqlName}<#if column_has_next>,</#if>
+            </#list>
+            ) VALUES (
+            <#list table.columns as column>
+            	<#if column.columnNameLower!="id">
+                <@mapperEl column.columnNameFirstLower/><#if column_has_next>,</#if>
+                </#if>
+            </#list> 
+            )
+        ]]>
+    </insert>
+
+    <insert id="saveBatch">
+        <![CDATA[
+            INSERT INTO ${table.sqlName} (
+            <#list table.notPkColumns as column>
+            	<#if column.columnNameLower!="id">
+                ${column.sqlName}<#if column_has_next>,</#if>
+                </#if>
+            </#list>
+            ) VALUES
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+            (<#list table.columns as column><#if column.columnNameLower!="id"><@mapperEl2 column.columnNameFirstLower/><#if column_has_next>,</#if></#if></#list>)
+        </foreach>
+    </insert>
+    
+    <update id="update">
+        	UPDATE
+                ${table.sqlName}
+            <set>
+                <#list table.notPkColumns as column>
+                <![CDATA[ ${column.sqlName} = <@mapperEl column.columnNameFirstLower/> ]]><#if column_has_next>,</#if>
+                </#list>
+            </set>
+            <where> 
+                <#list table.compositeIdColumns as column>
+                ${column.sqlName} = <@mapperEl column.columnNameLower/><#if column_has_next> AND </#if>
+                </#list>
+            </where>
+    </update>
+    
+    <update id="updatePart">
+            UPDATE
+                ${table.sqlName}
+            <set>
+                <#list table.notPkColumns as column>
+                <if test="${column.columnNameFirstLower} != null">
+                	<![CDATA[ ${column.sqlName} = <@mapperEl column.columnNameFirstLower/> ]]><#if column_has_next>,</#if>
+                </if>
+                </#list>
+            </set>
+            <where>
+                <#list table.compositeIdColumns as column>
+                ${column.sqlName} = <@mapperEl column.columnNameLower/><#if column_has_next> AND </#if>
+                </#list>
+            </where>
+    </update>
+    
+    <delete id="deleteByPk">
+        <![CDATA[
+            DELETE
+            FROM
+                ${table.sqlName}
+            WHERE
+                <#list table.compositeIdColumns as column>
+                ${column.sqlName} = <@mapperEl 'id'/> <#if column_has_next> AND </#if>
+                </#list>
+        ]]>
+    </delete>
+    
+    <delete id="deleteBatchByPks">
+        <![CDATA[
+            DELETE
+            FROM
+                ${table.sqlName}
+            WHERE
+                <#list table.compositeIdColumns as column>${column.sqlName}</#list> IN
+        ]]>
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")"><@mapperEl 'item'/></foreach>
+    </delete>
+</mapper>
+

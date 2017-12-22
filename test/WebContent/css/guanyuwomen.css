@@ -1,0 +1,64 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	overflow-x: hidden;
+}
+
+.guanyuwomen_banner {
+	width: 100%;
+	height: 260px;
+	margin: 0 auto;
+	background: url('../images/guanyuwomen/pic_about_banner.png') no-repeat
+		center top;
+}
+
+.guanyuwomen_daohang {
+	width: 100%;
+	height: 50px;
+	margin-top: 20px;
+}
+
+.guanyuwomen_daohang_top {
+	width: 100%;
+	height: 41px;
+	cursor: pointer;
+	border: 1px solid red;
+}
+
+.guanyuwomen_daohang_top ul li {
+	width: 132px;
+	color: #000;
+	float: left;
+	height: 36px;
+	font-size: 15px;
+	text-align: center;
+	font-family: "微软雅黑";
+	line-height: 30px;
+}
+
+.guanyuwomen_daohang_top ul {
+	width: 1116px;
+	margin: 0 auto;
+}
+
+.guanyuwomen_daohang_bottom {
+	width: 100%;
+	height: 8px;
+	background: #eeeeee;
+}
+/*.guanyuwomen_daohang_bottom ul li{float: left; no-repeat center; width: 132px;height: 6px;margin-top: 0px;visibility:hidden;background: #1bb7fc;}
+.guanyuwomen_daohang_bottom ul{width: 1116px;margin: 0 auto;}*/
+.content {
+	display: none;
+}
+
+.clearfix:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}

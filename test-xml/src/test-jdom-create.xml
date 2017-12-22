@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conpany name="hd">
+  <department name="department1">
+    <employee name="employee1" id="1">123</employee>
+  </department>
+</conpany>

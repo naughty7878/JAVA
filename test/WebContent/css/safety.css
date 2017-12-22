@@ -1,0 +1,148 @@
+*{margin: 0; padding: 0;}
+body{
+	overflow-x: hidden;
+}
+.safe_banner{
+	width: 100%;
+	height: 330px;
+	margin: 0 auto;
+	background: url('../images/safe/pc_safe.png') no-repeat center top;
+}
+.safe_title{
+	width: 100%;
+	margin: 0 auto;
+	height: 110px;
+	
+}
+.safe_title_tubiao{
+	width: 546px;
+	height: 96px;
+	margin: 0 auto;
+	cursor: pointer;
+	margin-top: 30px;
+}
+.safe_secruity_title{
+	width: 546px;
+	height: 93px;
+	margin: 0 auto;
+	cursor: pointer;
+	margin-top: 26px;
+}
+.safe_content_one{
+	width: 100%;
+	margin: 0 auto;
+	height: 600px;
+	background:#dcf2fd ;
+}
+.safe_content_one_mushiyi{
+	height: 595px;
+	margin: 0 auto;
+	border: 1px solid #dcf2fd;
+}
+.safe_content_one_top{width: 100%;height: 70px;}
+.safe_content_one_top ul li{float: left;list-style: none;height: 60px;}
+#mushione{font-family: "微软雅黑";color: #48c2f1;font-weight: bold;font-size: 22px;}
+.safe_content_one_bottom{width:713px;height: 425px; margin: 0 auto;}
+#safe_content_two_bottom{width: 526px;height: 600px;margin: 0 auto;}
+#safe_content_three_bottom{width: 822px;height: 383px;margin: 0 auto;margin-top: 70px;}
+
+.safe_content_two{
+	width: 100%;
+	height: 730px;
+	margin: auto 0;
+}
+.safe_content_three{
+	width: 100%;
+	height: 610px;
+	margin: 0 auto;
+	background:#dcf2fd ;
+}
+/*五大安全保障*/
+.safe_security_one{
+	width: 100%;
+	height: 580px;
+	margin: 0 auto;
+	background:#dcf2fd ;
+}
+.safe_security_one_mushiyi{height: 580px;margin: 0 auto;}
+.safe_security_top{width: 100%;height: 45px;margin-top:120px; }
+.safe_security_top ul li{float: left;list-style: none;height: 45px;}
+#safe_security_bottom{width: 100%;height: 410px;}
+#safe_security_left{float: left;width: 426px;height:406px;}
+#safe_security_right{float: left;width: 447px;height: 406px;margin-left: 70px;}
+#safe_security_left ul li{width: 95%;height: 100px;margin-left: 20px;}
+.safe_security_left_tubiao{width: 16px;height: 16px;float: left;}
+.safe_security_left_shuoming{float: left;width: 360px;height: auto;margin-left: 18px;font-size: 15px;font-family: '微软雅黑';color: #696461;}
+
+
+.safe_security_two{
+	width: 100%;
+	height: 420px;
+	margin: 0 auto;
+}
+.safe_security_two_left{width: 430px;height: 362px; float: left;margin-top: 50px;}
+.safe_security_two_right{width: 441px;height: 362px;float: left;margin-left: 70px;margin-top: 50px;}
+.safe_security_two_bottom{width: 95%;height: 200px;margin-left: 15px;margin-top: 40px;}
+.safe_security_two_bottom ul li{list-style: none;width: 95%;height: 48px;margin-top: 0px;}
+
+
+.safe_security_three{
+	width: 100%;
+	height: 400px;
+	margin: 0 auto;
+	background:#dcf2fd;
+}
+#safe_security_three_left{float: left;width: 450px;height: 310px;margin-top: 60px;}
+#safe_security_three_right{float: left;width: 315px; height: 257px;margin-left: 120px;margin-top: 100px;}
+
+
+
+.safe_security_four{
+	width: 100%;
+	height: 600px;
+	margin: 0 auto;
+}
+.safe_security_five{
+	width: 100;
+	height: 900px;
+	margin: 0 auto;
+	background:#dcf2fd ;
+}
+
+.safe_secruity_five_bottom{width: 90%; height:750px;margin-left: 10%;}
+.safe_secruity_five_li li{float: left;margin-left: 5px;}
+.safe_secruity_five_li{margin-top: 20px;height: 60px;border-bottom: 1px dashed #0896e0;}
+.safe_secruity_five_fontone{font-family: "微软雅黑";width: 95%;height: auto;font-size: 15px;color: #7c8a95;}
+
+
+
+
+
+
+/* css注释：设置了浏览器宽度大于1201px时 abc 显示1200px宽度 */ 
+@media screen and (min-width: 1201px) {
+.safe_banner {border: 1px solid green;}
+.safe_content_one_mushiyi {width: 850px;}
+.mushiyi_font{font-size: 13px;}
+#safe_content_one_mushier{width: 850px;}
+.safe_security_one_mushiyi{width: 950px;}
+} 
+
+/* 设置了浏览器宽度小于1200px时 abc 显示900px宽度 */ 
+@media screen and (max-width: 1200px) {
+.safe_banner{border: 1px solid blue;}
+.safe_content_one_mushiyi{width: 550px;}
+#safe_content_one_mushier{width: 550px;}
+.safe_security_one_mushiyi{width: 60px;}
+.mushiyi_font{font-size: 12px;}
+}
+/* 设置了浏览器宽度小于901px时 abc 显示200px宽度 */
+@media screen and (max-width: 901px) {
+.safe_banner {border: 1px solid red;}
+.safe_content_one_mushiyi{width: 350px;}
+#safe_content_one_mushier{width: 350px;}
+.safe_security_one_mushiyi{width: 450px;}
+.mushiyi_font{font-size: 12px;}
+}
+
+

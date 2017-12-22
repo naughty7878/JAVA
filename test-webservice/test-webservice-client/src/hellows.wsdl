@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions 
+	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" 
+	xmlns:wsp="http://www.w3.org/ns/ws-policy" 
+	xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" 
+	xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:tns="http://ws.test.com/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns="http://schemas.xmlsoap.org/wsdl/" 
+	targetNamespace="http://ws.test.com/" 
+	name="HelloWSImplService">
+	<!--
+		types
+			schema : 定义了一些标签结构
+	-->
+	<types>
+		<xsd:schema>
+			<!-- 此处引用的sehemaLocation地址，可以使用浏览器打开，获取schema约束 -->
+			<xsd:import namespace="http://ws.test.com/" 
+				schemaLocation="http://127.0.0.1:8989/test-webservice/hellows?xsd=1"></xsd:import>
+		</xsd:schema>
+	</types>
+
+	<!--
+		message : 用于定义消息的结构 soap消息
+			part ：指定引用types中定义的标签片段
+	-->
+	<message name="sayHello">
+		<part name="parameters" element="tns:sayHello"></part>
+	</message>
+	<message name="sayHelloResponse">
+		<part name="parameters" element="tns:sayHelloResponse"></part>
+	</message>
+	
+	<!--
+		portType : 用来定义服务器端的SEI
+			operation ： 用来指定SEI中处理请求的方法
+				input ： 指定客户端应用传过来的数据，会引用上面的定义的<message>
+				output : 指定服务器端返回给客户端的数据，会引用上面定义的<message>
+	-->
+	<portType name="HelloWSImpl">
+		<operation name="sayHello">
+			<input wsam:Action="http://ws.test.com/HelloWSImpl/sayHelloRequest" message="tns:sayHello"></input>
+			<output wsam:Action="http://ws.test.com/HelloWSImpl/sayHelloResponse" message="tns:sayHelloResponse"></output>
+		</operation>
+	</portType>
+	
+	<!--
+		binding : 用于定义SEI的实现类
+			type属性：引用上面的<portType>
+			<soap:binding style="document"> ：绑定的数据是一个document（xml）
+			operation ： 用来定义实现的方法
+				<soap:operation style="document" /> 传输的是document（xml）
+				input ： 指定客户端引用传过来的数据
+					<soap:body use="literal"> ：文本数据
+				output ： 指定服务端返回给客户端的数据
+					<soap:body use="literal"> ：文本数据
+	-->
+	<binding name="HelloWSImplPortBinding" type="tns:HelloWSImpl">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"></soap:binding>
+		<operation name="sayHello">
+			<soap:operation soapAction=""></soap:operation>
+			<input>
+				<soap:body use="literal"></soap:body>
+			</input>
+			<output>
+				<soap:body use="literal"></soap:body>
+			</output>
+		</operation>
+	</binding>
+	
+	<!--
+		service ： 一个webservice的容器
+			name属性 ： 它用已指定客户端容器类
+			port ： 用来指定一个服务器端处理请求的入口（就是SEI的实现）
+				binding属性 ： 引用上面定义的<binding>
+				address ： 当前webservice的请求地址
+	-->
+	<service name="HelloWSImplService">
+		<port name="HelloWSImplPort" binding="tns:HelloWSImplPortBinding">
+			<soap:address location="http://127.0.0.1:8989/test-webservice/hellows"></soap:address>
+		</port>
+	</service>
+</definitions>

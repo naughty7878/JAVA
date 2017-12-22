@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conpany name="hd2">  
+    <department name="department1">  
+        <employee id="1" name="employee1">123</employee>  
+    </department>  
+    <department name="department2">  
+        <employee id="2" name="employee2">321</employee>    
+        <employee id="3" name="employee3"/>    
+    <employee name="employee4">44444</employee>
+</department>  
+      
+</conpany>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+
+	<!-- 引cxf的一些核心配置 -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+
+	<!-- 定义webservice服务，相当于发布 -->
+	<jaxws:server id="HelloWS" address="/helloWS"
+		serviceClass="com.test.ws.HelloWS">
+		<!--发布服务类 -->
+		<jaxws:serviceBean>
+			<bean class="com.test.ws.HelloWSImpl"></bean>
+		</jaxws:serviceBean>
+		
+		<!-- 输入拦截器 -->
+		<jaxws:inInterceptors>
+     		<bean class="org.apache.cxf.interceptor.LoggingInInterceptor"></bean>
+     	</jaxws:inInterceptors>
+     	
+     	<!-- 输出拦截器 -->
+     	<jaxws:outInterceptors>
+     		<bean class="org.apache.cxf.interceptor.LoggingOutInterceptor"></bean>
+     	</jaxws:outInterceptors>
+	</jaxws:server>
+
+</beans>
