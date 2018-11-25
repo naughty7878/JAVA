@@ -19,7 +19,7 @@ public class JedisUtils {
 		config.setMaxIdle(10);
 
 		// 2、设置连接池对象
-		POOL = new JedisPool(config, "redis.naughty7878.top", 6379);
+		POOL = new JedisPool(config, "localhost", 6379);
 	}
 	
 	/**
