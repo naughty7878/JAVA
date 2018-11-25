@@ -17,7 +17,7 @@ public class TestJedisDemo1 {
 	@Test
 	public void run1() {
 		
-		Jedis jedis = new Jedis("120.78.189.168", 6379);
+		Jedis jedis = new Jedis("localhost", 17001);
 		jedis.set("sex", "男");
 		System.out.println(jedis.get("sex"));
 	}
@@ -29,7 +29,7 @@ public class TestJedisDemo1 {
 	 * @date 2018年7月5日
 	 */
 	@Test
-	public void run2() {
+	public void RUN2() {
 		
 		// 1、设置连接池的配置对象
 		JedisPoolConfig config = new JedisPoolConfig();
@@ -39,10 +39,11 @@ public class TestJedisDemo1 {
 		config.setMaxIdle(10);
 		
 		// 2、设置连接池对象
-		JedisPool pool = new JedisPool(config, "120.78.189.168", 6379);
+		JedisPool pool = new JedisPool(config, "localhost", 17001);
 		
 		// 3、从池中获取连接对象
 		Jedis jedis = pool.getResource();
+		jedis.auth("admin");
 		System.out.println(jedis.get("sex"));
 		
 		// 4、连接池归还
