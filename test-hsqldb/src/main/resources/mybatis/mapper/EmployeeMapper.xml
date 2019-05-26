@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace：名称空间 id：唯一标识 resultType：返回值类型 #{id}：从传过来的参数中取出id值 -->
+<mapper namespace="com.test.hsqldb.dao.EmployeeMapper">
+<!-- 
+<cache eviction="FIFO" flushInterval="60000" readOnly="false" size="1024"></cache>
+ -->
+
+	<select id="getEmployee"
+		resultType="com.test.hsqldb.pojo.Employee">
+		select id, last_name lastName, gender, email from employee
+	</select>
+	
+	<insert id="add" parameterType="com.test.hsqldb.pojo.Employee">
+		insert into employee(last_name, email, gender)
+		values(#{lastName}, #{email}, #{gender})
+	</insert>
+
+</mapper>

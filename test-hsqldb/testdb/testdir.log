@@ -1,0 +1,6 @@
+/*C3*/SET SCHEMA PUBLIC
+DROP TABLE test IF EXISTS
+create table test(id integer,name VARCHAR(22) )
+INSERT INTO TEST VALUES(1,'\u5c0f\u660e')
+COMMIT
+DISCONNECT
