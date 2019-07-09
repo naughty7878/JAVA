@@ -1,4 +1,4 @@
-package com.hd.dao;
+package com.hd.demo;
 
 @Table("user")
 public class Filter {
