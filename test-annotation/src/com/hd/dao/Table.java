@@ -1,4 +1,4 @@
-package com.hd.demo;
+package com.hd.dao;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
