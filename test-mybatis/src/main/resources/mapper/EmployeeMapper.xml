@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace：名称空间 id：唯一标识 resultType：返回值类型 #{id}：从传过来的参数中取出id值 -->
+<mapper namespace="com.hd.test.mapper.EmployeeMapper">
+<!-- <cache eviction="FIFO" flushInterval="60000" readOnly="false" size="1024"></cache> -->
+	<!--  
+	eviction:缓存的回收策略：
+		• LRU – 最近最少使用的：移除最长时间不被使用的对象。
+		• FIFO – 先进先出：按对象进入缓存的顺序来移除它们。
+		• SOFT – 软引用：移除基于垃圾回收器状态和软引用规则的对象。
+		• WEAK – 弱引用：更积极地移除基于垃圾收集器状态和弱引用规则的对象。
+		• 默认的是 LRU。
+	flushInterval：缓存刷新间隔
+		缓存多长时间清空一次，默认不清空，设置一个毫秒值
+	readOnly:是否只读：
+		true：只读；mybatis认为所有从缓存中获取数据的操作都是只读操作，不会修改数据。
+				 mybatis为了加快获取速度，直接就会将数据在缓存中的引用交给用户。不安全，速度快
+		false(默认)：非只读：mybatis觉得获取的数据可能会被修改。
+				mybatis会利用序列化&反序列的技术克隆一份新的数据给你。安全，速度慢
+	size：缓存存放多少元素；
+	type=""：指定自定义缓存的全类名；
+			实现Cache接口即可；
+	-->
+	
+<!-- 使用ehcache作为二级缓存 -->	
+<cache type="org.mybatis.caches.ehcache.EhcacheCache"></cache>
+
+
+	<select id="getEmployeeById"
+		resultType="com.hd.test.pojo.Employee">
+		select id, last_name lastName, gender, email from employee
+		where id =
+		#{id}
+	</select>
+
+	<select id="getEmployeeByDeptId"
+		resultType="com.hd.test.pojo.Employee">
+		select id, last_name lastName, gender, email from employee
+		where dept_id =
+		#{deptId}
+	</select>
+
+
+	<select id="getEmployeeById2" resultType="emp">
+		select id,
+		last_name lastName, gender, email from employee where id =
+		#{id}
+	</select>
+
+	<select id="getEmployeeById2" resultType="emp"
+		databaseId="mysql">
+		select id, last_name lastName, gender from employee where
+		id =
+		#{id}
+	</select>
+	
+	
+	
+	
+
+	<!-- public Long insertEmployee(Employee employee); -->
+	<!-- parameterType 可写可不写 -->
+	<insert id="insertEmployee"
+		parameterType="com.hd.test.pojo.Employee">
+		insert into employee(last_name, email, gender)
+		values(#{lastName}, #{email}, #{gender})
+	</insert>
+
+	<!-- 获取自增主键的值： mysql支持自增主键，自增主键值的获取，mybatis也是利用statement.genGenreatedKeys() 
+		useGeneratedKeys="true"，使用自增主键获取主键值策略 keyProperty：指定对应的主键属性，也就是mybatis获取到主键值以后，将这个值封装给JavaBean的属性 -->
+	<insert id="insertEmployeeReturnId"
+		parameterType="com.hd.test.pojo.Employee" useGeneratedKeys="true"
+		keyProperty="id">
+		insert into employee(last_name, email, gender)
+		values(#{lastName}, #{email}, #{gender})
+	</insert>
+
+	<!-- public boolean updateEmployee(Employee employee); -->
+	<update id="updateEmployee">
+		update employee
+		set last_name = #{lastName}, email = #{email}, gender = #{gender}
+		where
+		id = #{id}
+	</update>
+
+	<!-- public Integer deleteEmployeeById(Integer id); -->
+	<delete id="deleteEmployeeById">
+		delete from employee where id = #{id}
+	</delete>
+
+
+	<select id="testGetParam" resultType="com.hd.test.pojo.Employee">
+		select id, last_name
+		lastName, gender from employee order by #{field} limit 1;
+	</select>
+
+	<!-- • if:判断 
+		• choose (when, otherwise):分支选择；带了break的swtich-case 如果带了id就用id查，如果带了lastName就用lastName查;只会进入其中一个 
+		• trim 字符串截取(where(封装查询条件), set(封装修改条件)) 
+		• foreach 遍历集合 -->
+
+	<!-- public List<Employee> testConditionIf(Employee employee); -->
+	<!-- if：判断 -->
+	<select id="testConditionIf"
+		resultType="com.hd.test.pojo.Employee">
+		select id, last_name lastName, gender from employee
+		<!-- 
+			test：判断表达式（OGNL） OGNL参照PPT或者官方文档。 
+			c:if test 从参数中取值进行判断 遇见特殊符号应该去写转义字符： &&：
+			
+		 -->
+		where 1 = 1
+		<if test="id != null">
+			AND id = #{id}
+		</if>
+		<!-- 表达式中，字符串使用''单引号引起来 -->
+		<if test="lastName != null and lastName.trim() != ''">
+			AND last_name = #{lastName}
+		</if>
+		<!-- ognl会进行字符串与数字的转换判断  "0"==0 -->
+		<if test="gender==0 or gender==1">
+			AND gender = #{gender}
+		</if>
+		<!-- 转义字符: &amp;&amp; == &&    &quot;&quot; == ""-->
+		<if test="email != null &amp;&amp; lastName!=&quot;&quot;">
+			AND email = #{email}
+		</if>
+	</select>
+
+	<!-- if + where -->
+	<select id="testConditionIfWhere"
+		resultType="com.hd.test.pojo.Employee">
+		select id, last_name lastName, gender from employee
+		<where>
+			<if test="id != null">
+				AND id = #{id}
+			</if>
+			<if test="lastName != null and lastName.trim() != ''">
+				AND last_name = #{lastName}
+			</if>
+			<if test="gender==0 or gender==1">
+				AND gender = #{gender}
+			</if>
+			<if test="email != null &amp;&amp; lastName!=&quot;&quot;">
+				AND email = #{email}
+			</if>
+		</where>
+	</select>
+	
+	<!-- if + trim -->
+	<select id="testConditionIfTrim"
+		resultType="com.hd.test.pojo.Employee">
+		select id, last_name lastName, gender from employee
+		<!-- 后面多出的and或者or where标签不能解决 
+			prefix="":前缀：trim标签体中是整个字符串拼串 后的结果。 prefix给拼串后的整个字符串加一个前缀 
+			prefixOverrides="": 前缀覆盖： 去掉整个字符串前面多余的字符 
+			suffix="":后缀 suffix给拼串后的整个字符串加一个后缀 
+			suffixOverrides="" 后缀覆盖：去掉整个字符串后面多余的字符 -->
+		<trim prefix="where" prefixOverrides="AND">
+			<if test="id != null">
+				AND id = #{id}
+			</if>
+			<if test="lastName != null">
+				AND last_name = #{lastName}
+			</if>
+			<if test="gender != null">
+				AND gender = #{gender}
+			</if>
+			<if test="email != null">
+				AND email = #{email}
+			</if>
+		</trim>
+	</select>
+
+	<!-- choose -->
+	<select id="testConditionChoose" resultType="com.hd.test.pojo.Employee">
+		select id, last_name lastName, gender from employee
+		where 1 = 1
+		<choose>
+			<when test="id != null">
+				AND id = #{id}
+			</when>
+			<when test="lastName != null">
+				AND last_name = #{lastName}
+			</when>
+			<when test="gender != null">
+				AND gender = #{gender}
+			</when>
+			<when test="email != null">
+				AND email = #{email}
+			</when>
+			<otherwise>
+				AND 1 = 1
+			</otherwise>
+		</choose>
+	</select>
+	
+	<sql id="selectSql">id, last_name lastName, gender from employee</sql>
+	
+	<!-- foreach -->
+	<select id="testConditionForeach" resultType="com.hd.test.pojo.Employee">
+		select 
+		<include refid="selectSql"></include>
+		<!--
+	 		collection：指定要遍历的集合：
+	 			list类型的参数会特殊处理封装在map中，map的key就叫list
+	 		item：将当前遍历出的元素赋值给指定的变量
+	 		separator:每个元素之间的分隔符
+	 		open：遍历出所有结果拼接一个开始的字符
+	 		close:遍历出所有结果拼接一个结束的字符
+	 		index:索引。遍历list的时候是index就是索引，item就是当前值
+	 				      遍历map的时候index表示的就是map的key，item就是map的值
+	 		
+	 		#{变量名}就能取出变量的值也就是当前遍历出的元素
+	 	  -->
+		<foreach collection="ids" item="id" separator="," open="where id in (" close=")" >
+			#{id}
+		</foreach>
+	</select>
+	
+	
+	<update id="testConditionSet">
+		update employee 
+		<set>
+			<if test="lastName != null">
+				last_name = #{lastName},
+			</if>
+			<if test="gender != null">
+				gender = #{gender},
+			</if>
+			<if test="email != null">
+				email = #{email},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 两个内置参数：
+	 	不只是方法传递过来的参数可以被用来判断，取值。。。
+	 	mybatis默认还有两个内置参数：
+	 	_parameter:代表整个参数
+	 		单个参数：_parameter就是这个参数
+	 		多个参数：参数会被封装为一个map；_parameter就是代表这个map
+	 	
+	 	_databaseId:如果配置了databaseIdProvider标签。
+	 		_databaseId就是代表当前数据库的别名mysql
+	  -->
+	<select id="testInnerParameter" resultType="com.hd.test.pojo.Employee">
+		<if test="_databaseId == 'mysql'">select * from ${_parameter}</if>
+		<if test="_databaseId != 'mysql'">select * from ${_parameter} where 1 = 1</if>
+	</select>
+
+</mapper>

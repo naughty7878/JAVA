@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+namespace：名称空间
+id：唯一标识
+resultType：返回值类型
+#{id}：从传过来的参数中取出id值
+ -->
+<mapper namespace="com.hd.test.mapper.EmployeeMapperPlus">
+
+	<!--自定义某个javaBean的封装规则 type：自定义规则的Java类型 id:唯一id方便引用 -->
+	<resultMap type="com.hd.test.pojo.Employee" id="EmployeeMap">
+		<!--指定主键列的封装规则 id定义主键会底层有优化； column：指定哪一列 property：指定对应的javaBean属性 -->
+		<id column="id" property="id" />
+		<!-- 定义普通列封装规则 -->
+		<result column="last_name" property="lastName" />
+		<!-- 其他不指定的列会自动封装：我们只要写resultMap就把全部的映射规则都写上。 -->
+		<result column="email" property="email" />
+		<result column="gender" property="gender" />
+	</resultMap>
+
+	<select id="getEmployeeBys" resultMap="EmployeeMap">
+		select id, last_name,
+		gender, email from employee where id = #{id}
+	</select>
+	
+	
+	
+	<!-- 
+	场景一：
+		查询Employee的同时查询员工对应的部门
+		Employee===Department
+		一个员工有与之对应的部门信息；
+		id  last_name  gender    d_id     did  dept_name (private Department dept;)
+	 -->
+	<!--
+		联合查询：级联属性封装结果集
+	  -->
+	<resultMap type="com.hd.test.pojo.EmployeePlus" id="MyEmployeeDept">
+		<id column="id" property="id"/>
+		<result column="last_name" property="lastName"/>
+		<result column="gender" property="gender"/>
+		<result column="did" property="dept.id"/>
+		<result column="dept_name" property="dept.deptName"/>
+	</resultMap>
+	
+	<resultMap type="com.hd.test.pojo.EmployeePlus" id="MyEmployeeDept2">
+		<id column="id" property="id"/>
+		<result column="last_name" property="lastName"/>
+		<result column="gender" property="gender"/>
+			
+		<association property="dept" javaType="com.hd.test.pojo.Department">
+			<id column="did" property="id"/>
+			<result column="dept_name" property="deptName"/>
+		</association>
+	</resultMap>
+	
+	<select id="getMyEmployeeDept" resultMap="MyEmployeeDept2" >
+		SELECT
+			emp.id,
+			emp.last_name,
+			emp.gender,
+			dept.id AS did,
+			dept.dep_name AS dept_name 
+		FROM
+			employee emp
+			LEFT JOIN department dept ON emp.dept_id = dept.id
+		WHERE 
+			emp.id = #{id}
+	</select>
+	
+	<resultMap type="com.hd.test.pojo.EmployeePlus" id="MyEmployeeByStep">
+		<id column="id" property="id"/>
+		<result column="last_name" property="lastName"/>
+		<result column="gender" property="gender"/>
+			
+		<association property="dept" select="com.hd.test.mapper.DepartmentMapper.getDeparmentById" column="dept_id" fetchType="eager">
+		</association>
+	</resultMap>
+	
+	<select id="getMyEmployeeByStep" resultMap="MyEmployeeByStep" >
+		SELECT id, last_name, gender, dept_id FROM employee WHERE id = #{id}
+	</select>
+	
+	
+	
+	<!-- =======================鉴别器============================ -->
+	<!-- <discriminator javaType=""></discriminator>
+		鉴别器：mybatis可以使用discriminator判断某列的值，然后根据某列的值改变封装行为
+		封装Employee：
+			如果查出的是女生：就把部门信息查询出来，否则不查询；
+			如果是男生，把last_name这一列的值赋值给email;
+	 -->
+	 <resultMap type="com.hd.test.pojo.EmployeePlus" id="MyEmpDis">
+	 	<id column="id" property="id"/>
+	 	<result column="last_name" property="lastName"/>
+	 	<result column="email" property="email"/>
+	 	<result column="gender" property="gender"/>
+	 	<!--
+	 		column：指定判定的列名
+	 		javaType：列值对应的java类型  -->
+	 	<discriminator javaType="string" column="gender">
+	 		<!--女生  resultType:指定封装的结果类型；不能缺少。/resultMap-->
+	 		<case value="0" resultType="com.hd.test.pojo.EmployeePlus">
+	 			<association property="dept" 
+			 		select="com.hd.test.mapper.DepartmentMapper.getDeparmentById"
+			 		column="dept_id">
+		 		</association>
+	 		</case>
+	 		<!--男生 ;如果是男生，把last_name这一列的值赋值给email; -->
+	 		<case value="1" resultType="com.hd.test.pojo.EmployeePlus">
+		 		<id column="id" property="id"/>
+			 	<result column="last_name" property="lastName"/>
+			 	<result column="last_name" property="email"/>
+			 	<result column="gender" property="gender"/>
+	 		</case>
+	 	</discriminator>
+	 </resultMap>
+
+	<select id="getMyEmpDis" resultMap="MyEmpDis" >
+		SELECT id, last_name, gender, dept_id FROM employee WHERE id = #{id}
+	</select>
+</mapper>
