@@ -35,7 +35,7 @@ public class ${className}Example implements java.io.Serializable{
 	
 	protected List<Criteria> oredCriteria;
 	
-	public GodUserExample() {
+	public ${className}Example() {
 	    oredCriteria = new ArrayList<Criteria>();
 	}
 	
@@ -131,68 +131,68 @@ public class ${className}Example implements java.io.Serializable{
 		
 		<#list table.columns as column>
 		public Criteria and${column.columnName}IsNull() {
-		    addCriterion("${column.columnNameLower} is null");
+		    addCriterion("${column.sqlName} is null");
 		    return (Criteria) this;
 		}
 		public Criteria and${column.columnName}IsNotNull() {
-		    addCriterion("${column.columnNameLower} is not null");
+		    addCriterion("${column.sqlName} is not null");
 		    return (Criteria) this;
 		}
 		public Criteria and${column.columnName}EqualTo(${column.simpleJavaType} value) {
-		    addCriterion("${column.columnNameLower} =", value, "${column.columnNameLower}");
+		    addCriterion("${column.sqlName} =", value, "${column.columnNameLower}");
 		    return (Criteria) this;
 		}
 		public Criteria and${column.columnName}NotEqualTo(${column.simpleJavaType} value) {
-		    addCriterion("${column.columnNameLower} <>", value, "${column.columnNameLower}");
+		    addCriterion("${column.sqlName} <>", value, "${column.columnNameLower}");
 		    return (Criteria) this;
 		}
 		public Criteria and${column.columnName}GreaterThan(${column.simpleJavaType} value) {
-		    addCriterion("${column.columnNameLower} >", value, "${column.columnNameLower}");
+		    addCriterion("${column.sqlName} >", value, "${column.columnNameLower}");
 		    return (Criteria) this;
 		}
 		public Criteria and${column.columnName}GreaterThanOrEqualTo(${column.simpleJavaType} value) {
-		    addCriterion("${column.columnNameLower} >=", value, "${column.columnNameLower}");
+		    addCriterion("${column.sqlName} >=", value, "${column.columnNameLower}");
 		    return (Criteria) this;
 		}
 		public Criteria and${column.columnName}LessThan(${column.simpleJavaType} value) {
-		    addCriterion("${column.columnNameLower} <", value, "${column.columnNameLower}");
+		    addCriterion("${column.sqlName} <", value, "${column.columnNameLower}");
 		    return (Criteria) this;
 		}
 		
 		public Criteria and${column.columnName}LessThanOrEqualTo(${column.simpleJavaType} value) {
-		    addCriterion("${column.columnNameLower} <=", value, "${column.columnNameLower}");
+		    addCriterion("${column.sqlName} <=", value, "${column.columnNameLower}");
 		    return (Criteria) this;
 		}
 		
 		<#if column.isStringColumn>
 		public Criteria and${column.columnName}Like(String value) {
-		    addCriterion("${column.columnNameLower} like", value, "${column.columnNameLower}");
+		    addCriterion("${column.sqlName} like", value, "${column.columnNameLower}");
 		    return (Criteria) this;
 		}
 		
 		public Criteria and${column.columnName}NotLike(String value) {
-		    addCriterion("${column.columnNameLower} not like", value, "${column.columnNameLower}");
+		    addCriterion("${column.sqlName} not like", value, "${column.columnNameLower}");
 		    return (Criteria) this;
 		}
 		
 		</#if>
 		public Criteria and${column.columnName}In(List<${column.simpleJavaType}> values) {
-		    addCriterion("${column.columnNameLower} in", values, "${column.columnNameLower}");
+		    addCriterion("${column.sqlName} in", values, "${column.columnNameLower}");
 		    return (Criteria) this;
 		}
 		
 		public Criteria and${column.columnName}NotIn(List<${column.simpleJavaType}> values) {
-		    addCriterion("${column.columnNameLower} not in", values, "${column.columnNameLower}");
+		    addCriterion("${column.sqlName} not in", values, "${column.columnNameLower}");
 		    return (Criteria) this;
 		}
 		
 		public Criteria and${column.columnName}Between(${column.simpleJavaType} value1, ${column.simpleJavaType} value2) {
-		    addCriterion("${column.columnNameLower} between", value1, value2, "${column.columnNameLower}");
+		    addCriterion("${column.sqlName} between", value1, value2, "${column.columnNameLower}");
 		    return (Criteria) this;
 		}
 		
 		public Criteria and${column.columnName}NotBetween(${column.simpleJavaType} value1, ${column.simpleJavaType} value2) {
-		    addCriterion("${column.columnNameLower} not between", value1, value2, "${column.columnNameLower}");
+		    addCriterion("${column.sqlName} not between", value1, value2, "${column.columnNameLower}");
 		    return (Criteria) this;
 		}
 		</#list>

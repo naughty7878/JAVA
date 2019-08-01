@@ -18,7 +18,7 @@ import ${basepackage}.model.${className}Example;
  * @author ${author}
  * @date ${.now?string('yyyy-MM-dd HH:mm:ss')}
  */
-public interface GodUserDao {
+public interface ${className}Dao {
 	
 	/**
 	 * 统计记录-根据示例条件
