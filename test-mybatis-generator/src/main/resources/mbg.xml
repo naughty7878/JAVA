@@ -150,8 +150,8 @@
 	        15，delimitAllColumns：设置是否所有生成的SQL中的列名都使用标识符引起来。默认为false，delimitIdentifiers参考context的属性
 	        注意，table里面很多参数都是对javaModelGenerator，context等元素的默认属性的一个复写；
 	     -->
-		<table schema="test_mybatis" tableName="god_user_login_log"
-			domainObjectName="GodUserLoginLog" >
+		<table schema="test_mybatis" tableName="department"
+			domainObjectName="Department" >
 			<!-- 如果设置为true，生成的model类会直接使用column本身的名字，而不会再使用驼峰命名方法，比如BORN_DATE，生成的属性名字就是BORN_DATE,而不会是bornDate -->
 			<property name="useActualColumnNames" value="false" />
 			<!-- generatedKey用于生成生成主键的方法，
@@ -181,8 +181,9 @@
 	             column:指定要忽略的列的名字；
 	             delimitedColumnName：参考table元素的delimitAllColumns配置，默认为false
 	             注意，一个table元素中可以有多个ignoreColumn元素	
-	        -->
-			<ignoreColumn column="dept_id" />
+	        
+			<ignoreColumn column="dept_id" />-->
+			
 			<columnOverride column="gender" jdbcType="VARCHAR" />
 			
 		</table>

@@ -1,0 +1,217 @@
+<#include "/macro.include"/>
+<#assign className = table.className>   
+<#assign classNameFirstLower = table.classNameFirstLower>   
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<#macro mapperEl value>${r"#{"}${value}}</#macro>
+<#macro mapperElJ value>${r"${"}${value}}</#macro>
+<#macro mapperElP value jdbcType>${r"#{"}${value},jdbcType=${jdbcType}}</#macro>
+<#macro namespace>${basepackage}.dao.${className}Dao</#macro>
+<#macro classQualifiedName>${basepackage}.model.${className}</#macro>
+<#macro exampleQualifiedName>${basepackage}.model.${className}Example</#macro>
+<mapper namespace="<@namespace/>">
+
+	<resultMap id="BaseResultMap" type="<@classQualifiedName/>">
+        <#list table.columns as column>
+        <#if column.isPk() >
+        <id property="${column.columnNameLower}" jdbcType="${column.jdbcType}" column="${column.sqlName}"/>
+        <#else>
+        <result property="${column.columnNameLower}" jdbcType="${column.jdbcType}" column="${column.sqlName}"/>
+        </#if>
+		</#list>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+	<#list table.columns as column>
+		${column.sqlName}<#if column_has_next>,</#if>
+	</#list>
+	</sql>
+	
+	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+	<insert id="insert" parameterType="<@classQualifiedName/>" >
+	    <selectKey keyProperty="${table.idColumn.columnNameFirstLower}" order="AFTER" resultType="${table.idColumn.javaType}">
+			SELECT LAST_INSERT_ID()
+	   	</selectKey>
+        INSERT INTO ${table.sqlName} (
+        <#list table.notPkColumns as column>
+        	${column.sqlName}<#if column_has_next>,</#if>
+        </#list>
+        ) VALUES (
+        <#list table.notPkColumns as column>
+        	<@mapperElP column.columnNameFirstLower column.jdbcType/><#if column_has_next>,</#if>
+        </#list>        
+        )
+	</insert>
+	
+	<insert id="insertSelective" parameterType="<@classQualifiedName/>" >
+	   	<selectKey keyProperty="${table.idColumn.columnNameFirstLower}" order="AFTER" resultType="${table.idColumn.javaType}">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	   	INSERT INTO ${table.sqlName} 
+	   	<trim prefix="(" suffix=")" suffixOverrides=",">
+        <#list table.notPkColumns as column>
+			<if test="${column.columnNameFirstLower} != null">
+		    	${column.sqlName},
+			</if>
+        </#list>
+        </trim>  
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+       	<#list table.notPkColumns as column>
+       		<if test="${column.columnNameFirstLower} != null">
+	       		<@mapperElP column.columnNameFirstLower column.jdbcType/>,
+	       	</if>
+	    </#list> 
+		</trim>
+	</insert>
+    
+	<update id="updateByPrimaryKey" >
+        UPDATE ${table.sqlName} SET
+	        <#list table.notPkColumns as column>
+	        ${column.sqlName} = <@mapperElP column.columnNameFirstLower column.jdbcType/><#if column_has_next>,</#if>
+	        </#list>
+        WHERE 
+        	<#list table.compositeIdColumns as column>
+	        ${column.sqlName} = <@mapperElP column.columnNameFirstLower column.jdbcType/><#if column_has_next>,</#if>
+	        </#list>	        
+	</update>
+	
+	<update id="updateByPrimaryKeySelective" >
+        UPDATE ${table.sqlName} SET
+	        <#list table.notPkColumns as column>
+	        <if test="${column.columnNameFirstLower} != null">
+	        	${column.sqlName} = <@mapperElP column.columnNameFirstLower column.jdbcType/><#if column_has_next>,</#if>
+	        </if>
+	        </#list>
+        WHERE 
+        	<#list table.compositeIdColumns as column>
+	        ${column.sqlName} = <@mapperElP column.columnNameFirstLower column.jdbcType/><#if column_has_next>,</#if>
+	        </#list>	        
+	</update>
+
+    <delete id="deleteByPrimaryKey">
+        DELETE FROM ${table.sqlName} WHERE
+        <#list table.compositeIdColumns as column>
+        ${column.sqlName} = <@mapperElP column.columnNameFirstLower column.jdbcType/><#if column_has_next>,</#if>
+		</#list>
+    </delete>
+    
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+		SELECT <include refid="Base_Column_List" />
+	    FROM ${table.sqlName}
+        WHERE 
+			<#list table.compositeIdColumns as column>
+	        ${column.sqlName} = <@mapperElP column.columnNameFirstLower column.jdbcType/><#if column_has_next>,</#if>
+	        </#list>    
+	</select>
+	
+	<sql id="Example_Where_Clause">
+	  <where>
+	    <foreach collection="oredCriteria" item="criteria" separator="or">
+	      <if test="criteria.valid">
+	        <trim prefix="(" prefixOverrides="and" suffix=")">
+	          <foreach collection="criteria.criteria" item="criterion">
+	            <choose>
+	            	<when test="criterion.noValue">
+						and <@mapperElJ 'criterion.condition' />
+					</when>
+					<when test="criterion.singleValue">
+						and <@mapperElJ 'criterion.condition' /> <@mapperEl 'criterion.value' />
+					</when>
+					<when test="criterion.betweenValue">
+						and <@mapperElJ "criterion.condition" /> <@mapperEl 'criterion.value' /> and <@mapperEl 'criterion.secondValue' />
+					</when>
+					<when test="criterion.listValue">
+						and <@mapperElJ 'criterion.condition' />
+						<foreach close=")" collection="criterion.value" item="listItem" open="(" separator=","><@mapperEl 'listItem' /></foreach>
+					</when>
+	            </choose>
+	          </foreach>
+	        </trim>
+	      </if>
+	    </foreach>
+	  </where>
+	</sql>	
+
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and <@mapperElJ 'criterion.condition' />
+								</when>
+								<when test="criterion.singleValue">
+									and <@mapperElJ 'criterion.condition' /> <@mapperEl 'criterion.value' />
+								</when>
+								<when test="criterion.betweenValue">
+									and <@mapperElJ "criterion.condition" /> <@mapperEl 'criterion.value' /> and <@mapperEl 'criterion.secondValue' />
+								</when>
+								<when test="criterion.listValue">
+									and <@mapperElJ 'criterion.condition' />
+									<foreach close=")" collection="criterion.value" item="listItem" open="(" separator=","><@mapperEl 'listItem' /></foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	
+	<update id="updateByExample" parameterType="map">
+		UPDATE ${table.sqlName} SET
+	        <#list table.columns as column>
+	        ${column.sqlName} = <@mapperElP column.columnNameFirstLower column.jdbcType/><#if column_has_next>,</#if>
+	        </#list>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	
+	<update id="updateByExampleSelective" parameterType="map">
+		UPDATE ${table.sqlName} SET
+	        <#list table.columns as column>
+	        <if test="${column.columnNameFirstLower} != null">
+	        	${column.sqlName} = <@mapperElP column.columnNameFirstLower column.jdbcType/><#if column_has_next>,</#if>
+	        </if>
+	        </#list>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	
+	<delete id="deleteByExample" parameterType="<@exampleQualifiedName/>">
+		delete from god_user
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	
+	<select id="countByExample" parameterType="<@exampleQualifiedName/>" resultType="java.lang.Long">
+		select count(*) from ${table.sqlName}
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	
+	<select id="selectByExample" parameterType="<@exampleQualifiedName/>" resultMap="BaseResultMap">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from ${table.sqlName}
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by <@mapperEl 'orderByClause' />
+		</if>
+	</select>
+	
+</mapper>
+
