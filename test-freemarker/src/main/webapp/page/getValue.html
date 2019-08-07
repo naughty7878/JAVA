@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>逻辑</h1>
+	 <div>
+	 	1、取基本值
+	 	<ul>
+	 		<li>整型：${intValue }</li>
+	 		<li>字符串：${stringValue }</li>
+	 		<li>double型：${doubleValue }</li>
+	 		<li>布尔型：${booleanValue }</li>
+	 		<li>时间：${dateValue?string('yyyy-MM-dd') }</li>
+	 		<li>null值：${nullValue}</li>
+	 	</ul>
+	 	2、运算
+	 	<ul>
+	 		<li>加法：${intValue + 100}</li>
+	 	</ul>
+	 	3、集合
+ 	 	<ul>
+	 		List集合
+	 		<#list list as item>
+	 			<li>${item}</li>
+	 		</#list>
+	 		Map集合
+	 		<#list map?keys as key>
+	 			<li>${key}:${map[key]}</li>
+	 		</#list>
+	 	</ul>
+	 </div>
+</body>
+</html>

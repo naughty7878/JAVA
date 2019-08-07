@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>自定义函数</h1>
+	<h2>字符串常用内置函数</h2>
+	 <div>
+	 	<#assign myList=[2,3,4,5,1,8,9,7] />
+	 	<br />未排序
+	 	<ul>
+	 		<#list myList as item >
+	 		<li>${item }</li>
+	 		</#list>
+	 	</ul>
+	 	<br />排序(sort_int)
+	 	<ul>
+	 		<#list sort_int(myList) as item >
+	 		<li>${item }</li>
+	 		</#list>
+	 	</ul>
+	 </div>
+</body>
+</html>

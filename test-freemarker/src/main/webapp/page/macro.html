@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>模板中使用macro指令定义</h1>
+	<h2>1、macro:宏指令</h2>
+	 <div>
+	 	<br />无参数的macro
+	 	<ul>
+	 		<#macro test>
+	 		<li>我是无参的macro</li>
+	 		</#macro>
+	 		<@test />
+	 	</ul>
+	 	<br />有参数的macro
+	 	<ul>
+	 		<#macro test param1 param2>
+	 		<li>我是有参的macro param1 = ${param1}, param2 = ${param2}</li>
+	 		</#macro>
+	 		<@test param1="java" param2="python" />
+	 	</ul>
+	 	<br />有默认值参数的macro
+	 	<ul>
+	 		<#macro test param1 param2="def">
+	 		<li>我是有默认值参数的macro param1 = ${param1}, param2 = ${param2}</li>
+	 		</#macro>
+	 		<@test param1="java"  />
+	 	</ul>
+	 	<br />有多个参数的macro
+	 	<ul>
+	 		<#macro test param1 param2="def" paramExt... >
+	 		<li>有多个参数的macro param1 = ${param1}, param2 = ${param2}</li>
+	 		<li>${paramExt["param3"]} </li>
+	 		</#macro>
+	 		<@test param1="java" param2="python" param3="html"/>
+	 	</ul>
+	 </div>
+	 <h2>2、nested</h2>
+	 <div>
+	 	<br />嵌套
+	 	
+	 	<ul>
+	 		<#macro test  param1="java">
+	 		<li>${param1 }</li>我是无参的macro<br />
+	 		<#nested param1, "我的nested 参数">
+	 		</#macro>
+	 		<@test param1="java1"; loopVar1, loopVar2>
+	 			<font color="red">hello ${loopVar1}, ${loopVar2}</font>
+	 		</@test>
+	 		<@test param1="java2"; loopVar1, loopVar2>
+	 			hello ${loopVar1}, ${loopVar2}
+	 		</@test>
+	 	</ul>
+	 </div>
+	 <h2>2、函数</h2>
+	 <div>
+	 	<br />函数调用
+	 	
+	 	<ul>
+	 		<#function doAdd  param1 param2>
+	 			<#return param1+param2 > 
+	 		</#function>
+	 		<li>${doAdd(20, 30) }</li>
+	 	</ul>
+	 </div>
+	
+</body>
+</html> 

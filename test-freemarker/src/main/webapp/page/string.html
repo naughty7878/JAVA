@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>字符串</h1>
+	<h2>字符串常用内置函数</h2>
+	 <div>
+	 	<ul>
+	 		<#assign a='hello'/>
+	 		<#assign b='world'/>
+	 		<br />"+" 加号连接
+	 		<li>a + b = ${a + b }</li>
+	 		<br />substring 截取
+	 		<li>(a + b)?substring(5,8) = ${(a + b)?substring(5,8) }</li>
+	 		<br />length 长度
+	 		<li>(a + b)?length = ${(a + b)?length }</li>
+	 		<br />upper_case 大写
+	 		<li>(a + b)?upper_case = ${(a + b)?upper_case }</li>
+	 		<br />lower_case 小写
+	 		<li>(a + b)?lower_case = ${(a + b)?lower_case }</li>
+	 		<br />index_of 位置
+	 		<li>(a + b)?index_of('w') = ${(a + b)?index_of('w') }</li>
+	 		<br />replace 替换
+	 		<li>(a + b)?replace('w', 'W' ) = ${(a + b)?replace('w', 'W') }</li>
+	 		<br />contains 包含
+	 		<li>(a + b)?contains('w') = ${(a + b)?contains('w') }</li>
+	 	</ul>
+	 </div>
+</body>
+</html>
