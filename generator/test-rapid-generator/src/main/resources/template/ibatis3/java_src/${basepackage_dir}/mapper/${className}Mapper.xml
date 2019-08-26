@@ -209,7 +209,7 @@
 			<include refid="Example_Where_Clause" />
 		</if>
 		<if test="orderByClause != null">
-			order by <@mapperEl 'orderByClause' />
+			order by <@mapperElJ 'orderByClause' />
 		</if>
 	</select>
 	
