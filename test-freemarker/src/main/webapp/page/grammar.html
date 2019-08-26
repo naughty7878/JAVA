@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>逻辑语法</h1>
+	 <div>
+	 	1、if
+	 	<ul>
+	 		<#assign var=99/>
+	 		<#if var == 99 > 
+	 			<li>var=${var }</li>
+	 			
+	 		</#if>
+	 		
+	 		<#assign var1=199/>
+	 		<#if var1 == 99 > 
+	 			<li>var1=${var1 }</li>
+	 		<#else>
+	 			<li>var1=99</li>
+	 		</#if>
+	 		
+	 		<#assign var2 = 299/>
+	 		<#if var2 &lt; 99 > 
+	 			<li>var2 &lt; 99</li>
+	 		<elseif var2 == 99 >
+	 			<li>var2 = 299</li>
+	 		<#else >
+	 			<li>var2 &gt; 99</li>
+	 		</#if>
+	 	</ul>
+	 	2、switch
+	 	<ul>
+	 		<#assign var=3/>
+	 		<#switch var > 
+	 			<#case 1>
+	 				<li>1</li>
+	 			<#case 2>
+	 				<li>2</li>
+	 				<#break>
+	 			<#case 3>
+	 				<li>3</li>
+	 			<#case 4>
+	 				<li>4</li>
+	 				<#break>
+	 			<#default>
+	 				<li>default</li>
+	 		</#switch>
+	 	</ul>
+	 	
+	 </div>
+</body>
+</html>

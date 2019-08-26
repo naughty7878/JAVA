@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>指令</h1>
+	<h2>List常用指令</h2>
+	 <div>
+	 	<#assign myList=[2,3,4,5,1,8,9,7] />
+	 	<br />排序指令sort
+	 	<ul>
+	 		<#list myList?sort as item >
+	 		<li>${item_index } - ${item }</li>
+	 		</#list>
+	 	</ul>
+	 	<br />导至输出reverse
+	 	<ul>
+	 		<#list myList?sort?reverse as item >
+	 		<li>${item_index } - ${item }</li>
+	 		</#list>
+	 	</ul>
+	 	<br />大小
+	 	<ul>
+	 		<li>myList?size - ${myList?size }</li>
+	 		<li>myList[3] - ${myList[3] }</li>
+	 	</ul>
+	 </div>
+	<h2>自定义指令</h2>
+	
+	<div>
+	 	<@role user='123456' role='admin' ; result1, result2 >
+	 	<br />例：用户123456 是否拥有admin角色，并返回admin权限
+	 	<ul>
+	 		<#if result1 >
+	 		<li>我的角色是: amdin</li>
+	 		</#if>
+	 		我拥有的权限是：
+	 		<#list result2 as item >
+	 		<li>${item }</li>
+	 		</#list>
+	 	</ul>
+	 	</@role>
+	 </div>
+</body>
+</html>

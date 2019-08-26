@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+namespace：名称空间
+id：唯一标识
+resultType：返回值类型
+#{id}：从传过来的参数中取出id值
+ -->
+<mapper namespace="com.hd.test.mapper.DepartmentMapper">
+
+	<select id="getDeparmentById" resultType="com.hd.test.pojo.Department">
+		select id, dep_name deptName from department where id =
+		#{id}
+	</select>
+</mapper>
