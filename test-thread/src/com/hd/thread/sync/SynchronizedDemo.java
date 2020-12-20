@@ -50,4 +50,5 @@ public class SynchronizedDemo {
 		demo.new ReadWriteThread(true).start();
 		demo.new ReadWriteThread(false).start();
 	}
+
 }

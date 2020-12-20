@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>/test-sso1</display-name>
+	<servlet>
+		<servlet-name>Home2Servlet</servlet-name>
+		<display-name>Home2Servlet</display-name>
+		<description></description>
+		<servlet-class>com.test.sso.servlet.Home2Servlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>AddCookieServlet</display-name>
+		<servlet-name>AddCookieServlet</servlet-name>
+		<servlet-class>com.test.sso.servlet.AddCookieServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Home2Servlet</servlet-name>
+		<url-pattern>/home2</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AddCookieServlet</servlet-name>
+		<url-pattern>/addCookie</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>
+
