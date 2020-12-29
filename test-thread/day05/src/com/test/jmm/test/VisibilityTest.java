@@ -1,8 +1,6 @@
-package com.test.volatil;
+package com.test.jmm.test;
 
-import java.util.concurrent.TimeUnit;
-
-public class TestVolatile {
+public class VisibilityTest {
 
     static volatile boolean found = false;
 
