@@ -1,5 +1,7 @@
 package com.test.io;
 
+import org.junit.Test;
+
 import java.io.*;
 import java.util.Scanner;
 
@@ -70,6 +72,7 @@ public class OtherStreamTest {
     /**
      * 打印流：PrintStream 和 PrintWriter
      */
+    @Test
     public void testPrintStream(){
 
         PrintStream ps = null;
@@ -141,6 +144,54 @@ public class OtherStreamTest {
             System.out.println(dou);
             boolean b = dis.readBoolean();
             System.out.println(b);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if(dis != null) {
+                try {
+                    dis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+    @Test
+    public void test0(){
+        DataOutputStream dos = null;
+        try {
+            dos = new DataOutputStream(new FileOutputStream("d.txt"));
+            dos.write(1);
+            dos.writeBoolean(true);
+            dos.writeDouble(1.1);
+            dos.writeChars("abc");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if(dos != null) {
+                try {
+                    dos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+    @Test
+    public void test1(){
+        DataInputStream dis = null;
+        try {
+            dis = new DataInputStream(new FileInputStream("d.txt"));
+            System.out.println(dis.read());
+            System.out.println(dis.readBoolean());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
