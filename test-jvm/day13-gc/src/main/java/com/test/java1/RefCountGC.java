@@ -1,3 +1,5 @@
+package com.test.java1;
+
 /**
  * -XX:+PrintGCDetails
  * 证明：java使用的不是引用计数算法

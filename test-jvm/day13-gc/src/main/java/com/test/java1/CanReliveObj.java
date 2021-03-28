@@ -1,3 +1,5 @@
+package com.test.java1;
+
 /**
  * 测试Object类中finalize()方法，即对象的finalization机制。
  *
