@@ -9,6 +9,7 @@ public class TestVolatile {
     public static void main(String[] args) {
 
         new Thread(new Runnable() {
+            @Override
             public void run() {
                 System.out.println(Thread.currentThread().getName() + "：等基友送笔来...");
 
@@ -20,6 +21,7 @@ public class TestVolatile {
         }, "我的线程").start();
 
         new Thread(new Runnable() {
+            @Override
             public void run() {
                 try {
                     Thread.sleep(2000);

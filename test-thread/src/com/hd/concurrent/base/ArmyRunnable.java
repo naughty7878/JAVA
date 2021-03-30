@@ -14,7 +14,9 @@ public class ArmyRunnable implements Runnable {
 	// volatile 保证了线程可以正确的读取其他线程写入的值
 	// 可见行
 	volatile boolean keepRuning = true;
-	
+
+	int attackNum = 5;
+
 	@Override
 	public void run() {
 		

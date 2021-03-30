@@ -14,6 +14,7 @@ public class ReorderTest {
             x = 0; y = 0;
             a = 0; b = 0;
             Thread t1 = new Thread(new Runnable() {
+                @Override
                 public void run() {
                     a = 1;
                     x = b;
@@ -21,6 +22,7 @@ public class ReorderTest {
             });
 
             Thread t2 = new Thread(new Runnable() {
+                @Override
                 public void run() {
                     b = 1;
                     y = a;

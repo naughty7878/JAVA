@@ -96,7 +96,7 @@ public class Synchronized {
             new Thread() {
                 @Override
                 public void run() {
-                    syn.staticMethod();
+                    staticMethod();
                 }
             }.start();
             new Thread() {

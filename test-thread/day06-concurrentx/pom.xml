@@ -30,6 +30,12 @@
             <version>1.18.12</version>
             <scope>true</scope>
         </dependency>
+        <!-- 协程 -->
+        <dependency>
+            <groupId>co.paralleluniverse</groupId>
+            <artifactId>quasar-core</artifactId>
+            <version>0.7.6</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

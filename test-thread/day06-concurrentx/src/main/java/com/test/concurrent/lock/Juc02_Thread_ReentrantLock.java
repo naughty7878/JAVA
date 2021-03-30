@@ -20,17 +20,21 @@ import java.util.concurrent.locks.ReentrantLock;
  * @slogan: 天下风云出我辈，一入代码岁月催
  * @description: 
  **/
+@SuppressWarnings("AlibabaLockShouldWithTryFinally")
 @Slf4j
 public class Juc02_Thread_ReentrantLock {
 
     private static ReentrantLock lock = new ReentrantLock(true);
 
+    @SuppressWarnings("AlibabaLockShouldWithTryFinally")
     public static void reentrantLock(){
         String threadName = Thread.currentThread().getName();
         //默认创建的是独占锁，排它锁；同一时刻读或者写只允许一个线程获取锁
+        //noinspection AlibabaLockShouldWithTryFinally
         lock.lock();
         log.info("Thread:{},第一次加锁",threadName);
-            lock.lock();
+        //noinspection AlibabaLockShouldWithTryFinally
+        lock.lock();
             log.info("Thread:{},第二次加锁",threadName);
             lock.unlock();
             log.info("Thread:{},第二次解锁",threadName);

@@ -7,6 +7,7 @@ public class VisibilityTest {
     public static void main(String[] args) {
 
         new Thread(new Runnable() {
+            @Override
             public void run() {
                 System.out.println(Thread.currentThread().getName() + "：等基友送笔来...");
 
@@ -18,6 +19,7 @@ public class VisibilityTest {
         }, "我的线程").start();
 
         new Thread(new Runnable() {
+            @Override
             public void run() {
                 try {
                     Thread.sleep(2000);

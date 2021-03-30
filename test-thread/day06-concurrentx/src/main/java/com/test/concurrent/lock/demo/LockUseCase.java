@@ -6,8 +6,9 @@ import java.util.concurrent.locks.ReentrantLock;
 public class LockUseCase {
     public static void main(String[] args) {
         Lock lock = new ReentrantLock();
+        lock.lock();
         try {
-            lock.lock();
+            System.out.println(1);
         } finally {
             lock.unlock();
         }

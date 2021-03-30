@@ -14,7 +14,8 @@ public class ConcurrentHashMapTest {
     public void test0(){
         int num = -3;
         System.out.println(Integer.toBinaryString(-3));
-        int tmp = 1<<31; //用于计算的临时变量
+        //用于计算的临时变量
+        int tmp = 1<<31;
 
         System.out.println();
         for(int i=0; i<Integer.SIZE-1; i++) {

@@ -17,6 +17,7 @@ public class ExchangerRunner {
         for(int i = 0 ; i < 10 ; i++) {
             final Integer num = i;
             new Thread() {
+                @Override
                 public void run() {
                     System.out.println("我是线程：Thread_" + this.getName() + "我的数据是：" + num);
                     try {

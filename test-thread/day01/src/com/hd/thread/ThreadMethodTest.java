@@ -42,7 +42,7 @@ class HelloThread extends Thread {
 
             if (i % 20 == 0) {
                 // 释放当前CPU的执行权
-                this.yield();
+                yield();
             }
         }
     }

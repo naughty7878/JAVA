@@ -14,6 +14,7 @@ public class Jmm05_CodeReorder {
             x = 0; y = 0;
             a = 0; b = 0;
             Thread t1 = new Thread(new Runnable() {
+                @Override
                 public void run() {
                     shortWait(10000);
                     a = 1;
@@ -26,6 +27,7 @@ public class Jmm05_CodeReorder {
             });
 
             Thread t2 = new Thread(new Runnable() {
+                @Override
                 public void run() {
                     b = 1;
                     UnsafeInstance.reflectGetUnsafe().fullFence();

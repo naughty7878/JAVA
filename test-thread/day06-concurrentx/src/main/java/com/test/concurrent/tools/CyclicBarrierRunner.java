@@ -18,6 +18,7 @@ public class CyclicBarrierRunner implements Runnable {
         this.index = index;
     }
 
+    @Override
     public void run() {
         try {
             System.out.println("index: " + index);
@@ -29,6 +30,7 @@ public class CyclicBarrierRunner implements Runnable {
 
     public static void main(String[] args) throws Exception {
         CyclicBarrier cyclicBarrier = new CyclicBarrier(11, new Runnable() {
+            @Override
             public void run() {
                 System.out.println("所有特工到达屏障，准备开始执行秘密任务");
             }

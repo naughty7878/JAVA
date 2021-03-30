@@ -7,8 +7,10 @@ public class Actress implements Runnable {
 		System.out.println(Thread.currentThread().getName() + " 是一个演员！");
 
 		// 进行中
-		int count = 0;// 登台次数
-		boolean keepRunning = true;// 演出控制
+		// 登台次数
+		int count = 0;
+		// 演出控制
+		boolean keepRunning = true;
 		while (keepRunning) {
 			System.out.println(Thread.currentThread().getName() + " 登台演出：" + (++count));
 			if (count == 100) {

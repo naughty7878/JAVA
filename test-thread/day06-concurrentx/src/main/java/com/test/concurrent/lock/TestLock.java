@@ -10,12 +10,13 @@ public class TestLock {
 
     public static void main(String[] args) {
 
-        Thread t1 = new Thread(){
+        Thread t1 = new Thread() {
             @Override
             public void run() {
                 lock.lock();
-                System.out.println(Thread.currentThread().getName() + "：获得锁，进入线程。。。。");
-                Scanner scanner = new Scanner(System.in);
+                try {
+                    System.out.println(Thread.currentThread().getName() + "：获得锁，进入线程。。。。");
+                    Scanner scanner = new Scanner(System.in);
 //                int n = 0;
 //                while ((n = scanner.nextInt()) == 0) {
 //                    try {
@@ -24,22 +25,29 @@ public class TestLock {
 //                        e.printStackTrace();
 //                    }
 //                }
-                lock.unlock();
+                } finally {
+                    lock.unlock();
+                }
+
+
                 System.out.println(Thread.currentThread().getName() + "：释放锁，退出线程。。。。");
             }
         };
 
-        Thread t2 = new Thread(){
+        Thread t2 = new Thread() {
             @Override
             public void run() {
                 lock.lock();
-                System.out.println(Thread.currentThread().getName() + "：获得锁，进入线程。。。。");
                 try {
-                    Thread.sleep(10000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    System.out.println(Thread.currentThread().getName() + "：获得锁，进入线程。。。。");
+                    try {
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                } finally {
+                    lock.unlock();
                 }
-                lock.unlock();
                 System.out.println(Thread.currentThread().getName() + "：释放锁，退出线程。。。。");
             }
         };

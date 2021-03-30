@@ -13,8 +13,8 @@ public class TestInterrupt {
         System.out.println("第一次调用thread.isInterrupted()："+thread.isInterrupted());
         System.out.println("第二次调用thread.isInterrupted()："+thread.isInterrupted());
         // 测试 interrupted()函数
-        System.out.println("第一次调用thread.interrupted()："+Thread.currentThread().interrupted());
-        System.out.println("第二次调用thread.interrupted()："+Thread.currentThread().interrupted());
+        System.out.println("第一次调用thread.interrupted()："+Thread.interrupted());
+        System.out.println("第二次调用thread.interrupted()："+Thread.interrupted());
         System.out.println("thread是否存活："+thread.isAlive());
     }
 }

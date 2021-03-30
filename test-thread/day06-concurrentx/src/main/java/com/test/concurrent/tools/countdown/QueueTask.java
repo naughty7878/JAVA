@@ -16,6 +16,7 @@ public class QueueTask implements Runnable {
     public QueueTask(CountDownLatch countDownLatch){
         this.countDownLatch = countDownLatch;
     }
+    @Override
     public void run() {
         try {
             System.out.println("开始在医院药房排队买药....");
@@ -24,8 +25,9 @@ public class QueueTask implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }finally {
-            if (countDownLatch != null)
+            if (countDownLatch != null) {
                 countDownLatch.countDown();
+            }
         }
     }
 }

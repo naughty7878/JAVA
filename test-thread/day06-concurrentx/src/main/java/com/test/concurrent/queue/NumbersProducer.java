@@ -23,6 +23,7 @@ public class NumbersProducer implements Runnable {
         this.poisonPill = poisonPill;
         this.poisonPillPerProducer = poisonPillPerProducer;
     }
+    @Override
     public void run() {
         try {
             generateNumbers();

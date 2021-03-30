@@ -26,13 +26,11 @@ class Window implements Runnable{
 
     @Override
     public void run() {
-        while (true) {
+        while (ticket > 0) {
+            // 2、调用锁定方法lock
+            lock.lock();
             try {
-                // 2、调用锁定方法lock
-                lock.lock();;
-
                 if(ticket > 0) {
-
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
@@ -40,8 +38,6 @@ class Window implements Runnable{
                     }
                     System.out.println(Thread.currentThread().getName() + "：售票，票号为：" + ticket);
                     ticket --;
-                }else {
-                    break;
                 }
             } finally {
                 // 3、调用解锁方法unlock()

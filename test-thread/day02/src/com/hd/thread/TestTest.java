@@ -14,8 +14,8 @@ class NewWindow implements Callable {
     @Override
     public Object call() throws Exception {
         while (true) {
+            lock.lock();
             try {
-                lock.lock();
                 if (ticket > 0) {
                     try {
                         Thread.sleep(100);
@@ -29,8 +29,9 @@ class NewWindow implements Callable {
                     break;
                 }
             } finally {
-                if(ticket <= 0)
-                System.out.println(Thread.currentThread().getName() + "解锁" + ticket);
+                if(ticket <= 0) {
+                    System.out.println(Thread.currentThread().getName() + "解锁" + ticket);
+                }
                 lock.unlock();
             }
 

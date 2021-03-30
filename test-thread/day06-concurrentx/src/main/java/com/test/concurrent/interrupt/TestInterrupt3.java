@@ -8,7 +8,7 @@ public class TestInterrupt3 {
         thread.interrupt();
         //sleep等待一秒，等myThread运行完
         try {
-            Thread.currentThread().sleep(10000);
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

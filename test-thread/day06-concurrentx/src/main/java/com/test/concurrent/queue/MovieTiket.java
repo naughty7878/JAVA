@@ -61,6 +61,7 @@ public class MovieTiket implements Delayed {
      * @param unit
      * @return
      */
+    @Override
     public long getDelay(TimeUnit unit) {
         return unit.convert(this.expire
                 - System.currentTimeMillis() , TimeUnit.MILLISECONDS);
@@ -72,6 +73,7 @@ public class MovieTiket implements Delayed {
      * @param delayed
      * @return
      */
+    @Override
     public int compareTo(Delayed delayed) {
         return (int) (this.getDelay(TimeUnit.MILLISECONDS)
                 - delayed.getDelay(TimeUnit.MILLISECONDS));
