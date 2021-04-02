@@ -1,7 +1,7 @@
-package com.test.concurrent.queue.demo;
+package com.test.concurrent.queue.demo.arrayqueue;
 
-import com.test.concurrent.queue.NumbersConsumer;
-import com.test.concurrent.queue.NumbersProducer;
+import com.test.concurrent.queue.demo.arrayqueue.Consumer;
+import com.test.concurrent.queue.demo.arrayqueue.Producer;
 
 import java.util.Scanner;
 import java.util.concurrent.ArrayBlockingQueue;

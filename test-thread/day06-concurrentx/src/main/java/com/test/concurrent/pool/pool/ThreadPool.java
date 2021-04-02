@@ -1,4 +1,4 @@
-package com.test.concurrent.threadpood.pool;
+package com.test.concurrent.pool.pool;
 
 import java.util.concurrent.*;
 

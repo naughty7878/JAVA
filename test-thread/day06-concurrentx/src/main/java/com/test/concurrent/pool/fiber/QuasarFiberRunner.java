@@ -1,4 +1,4 @@
-package com.test.concurrent.threadpood.fiber;
+package com.test.concurrent.pool.fiber;
 
 import co.paralleluniverse.fibers.Fiber;
 import co.paralleluniverse.fibers.SuspendExecution;

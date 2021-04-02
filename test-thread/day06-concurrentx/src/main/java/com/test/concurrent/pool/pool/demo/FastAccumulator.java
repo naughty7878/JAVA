@@ -1,10 +1,7 @@
-package com.test.concurrent.threadpood.pool.demo;
+package com.test.concurrent.pool.pool.demo;
 
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.LongAccumulator;
-import java.util.concurrent.atomic.LongAdder;
 
 public class FastAccumulator {
 

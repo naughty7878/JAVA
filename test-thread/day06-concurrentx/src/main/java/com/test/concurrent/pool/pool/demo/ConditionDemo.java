@@ -1,9 +1,7 @@
-package com.test.concurrent.threadpood.pool.demo;
+package com.test.concurrent.pool.pool.demo;
 
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.AbstractQueuedLongSynchronizer;
 import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.LockSupport;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**

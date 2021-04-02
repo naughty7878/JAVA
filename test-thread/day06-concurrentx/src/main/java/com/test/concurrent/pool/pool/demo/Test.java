@@ -1,4 +1,4 @@
-package com.test.concurrent.threadpood.pool.demo;
+package com.test.concurrent.pool.pool.demo;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
