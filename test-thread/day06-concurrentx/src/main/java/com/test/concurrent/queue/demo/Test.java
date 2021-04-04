@@ -10,15 +10,17 @@ public class Test {
 
     public static void main(String[] args) {
 
+        int i = 16;
+        System.out.println((i >>= 1) != 0);
 
-        for (int i = 0; i < 10; i++) {
-//            ThreadLocalRandom random = ThreadLocalRandom.current();
-//            int i1 = random.nextInt(100);
-//            System.out.println(i1);
-//            System.out.println(random);
-
-            new Player().start();
-        }
+//        for (int i = 0; i < 10; i++) {
+////            ThreadLocalRandom random = ThreadLocalRandom.current();
+////            int i1 = random.nextInt(100);
+////            System.out.println(i1);
+////            System.out.println(random);
+//
+//            new Player().start();
+//        }
 
 
     }
