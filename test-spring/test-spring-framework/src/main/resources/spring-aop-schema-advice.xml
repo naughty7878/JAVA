@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd"
+		>
+	
+	<bean id="customAspect"  class="com.test.spring.aop.schema.advice.CustomAspect"></bean>
+	
+	<bean id="aspectBiz" class="com.test.spring.aop.schema.advice.biz.AspectBiz"></bean>
+	
+	<aop:config>
+		<aop:aspect id="customAspectAOP" ref="customAspect" >
+		
+			<aop:pointcut id="customPointCut" expression="execution(* com.test.spring.aop.schema.advice.biz.*Biz.*(..))" />
+			<aop:before method="before" pointcut-ref="customPointCut"/>
+			<aop:after-returning method="afterReturning" pointcut-ref="customPointCut"/>
+			<aop:after-throwing method="afterThrowing" pointcut-ref="customPointCut"/>
+			<aop:after method="after" pointcut-ref="customPointCut"/>	
+			<aop:around method="around" pointcut-ref="customPointCut"/>
+			<!--
+			参数环绕通知
+			<aop:around method="aroundInit" pointcut="execution(* com.test.spring.aop.schema.advice.biz.AspectBiz.init(String, int)) and args(bizName, times)"/>
+		 	 -->
+		 	<!--
+		 		1、简介允许一个切面声明一个实现指定接口的通知对象，并且提供了一个接口实现类来代表这些对象
+		 		2、<aop:aspect>中的<aop:declare-parents>元素声明该元素用于声明所匹配的类型拥有一个新的parent(因此得名)
+		 	 
+		 	<aop:declare-parents 
+		 		types-matching="com.test.spring.aop.schema.advice.biz.*(+))" 
+		 		implement-interface="com.test.spring.aop.schema.advice.Fit" 
+		 		default-impl="com.test.spring.aop.schema.advice.FitImpl"/>
+		 	-->
+		</aop:aspect>
+		
+	</aop:config>  
+		
+</beans>

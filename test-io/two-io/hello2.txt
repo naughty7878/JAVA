@@ -1,4 +1,0 @@
-Hello World
-I Love Java
-    中国人
-    中国人
