@@ -7,13 +7,13 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.junit.Test;
 
 import com.hd.test.mapper.DepartmentPlusMapper;
 import com.hd.test.mapper.EmployeeMapperPlus;
 import com.hd.test.pojo.DepartmentPlus;
 import com.hd.test.pojo.Employee;
 import com.hd.test.pojo.EmployeePlus;
+import org.junit.jupiter.api.Test;
 
 public class TestMybatisPlus {
 	
