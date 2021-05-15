@@ -27,6 +27,8 @@ public class Son extends Father {
     {
         System.out.println("(8)");
     }
+
+    @Override
     public int test(){
         System.out.println("(9)");
         return 1;
@@ -47,12 +49,12 @@ public class Son extends Father {
      *   <clinit>()方法只执行一次
      *
      * 实例初始化过程
-     * 1 实例初始化就是执行<linit>()方法
-     *   <linit>()方法可能重载有多个，有多个构造器就有几个<linit>()方法
-     *   <linit>()方法有非静态实例变量显示赋值代码和非静态代码块、对应构造器代码组成
+     * 1 实例初始化就是执行<init>()方法
+     *   <init>()方法可能重载有多个，有多个构造器就有几个<linit>()方法
+     *   <init>()方法有非静态实例变量显示赋值代码和非静态代码块、对应构造器代码组成
      *   非静态实例变量显示赋值代码和非静态代码块代码从上到下执行，而对应构造器的代码最后执行
      *   每次创建实例对象，调用对应构造器，执行的就是<linit>()方法
-     *   <linit>()方法的首行是super() 或 super(实参列表)，即对应父类的<linit>()方法
+     *   <init>()方法的首行是super() 或 super(实参列表)，即对应父类的<init>()方法
      *
      * @param args
      */
