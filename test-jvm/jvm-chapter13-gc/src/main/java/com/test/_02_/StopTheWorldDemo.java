@@ -11,6 +11,7 @@ public class StopTheWorldDemo {
     public static class WorkThread extends Thread {
         List<byte[]> list = new ArrayList<byte[]>();
 
+        @Override
         public void run() {
             try {
                 while (true) {
@@ -33,6 +34,7 @@ public class StopTheWorldDemo {
     public static class PrintThread extends Thread {
         public final long startTime = System.currentTimeMillis();
 
+        @Override
         public void run() {
             try {
                 while (true) {
@@ -50,7 +52,7 @@ public class StopTheWorldDemo {
     public static void main(String[] args) {
         WorkThread w = new WorkThread();
         PrintThread p = new PrintThread();
-        w.start();
+//        w.start();
         p.start();
     }
 }
