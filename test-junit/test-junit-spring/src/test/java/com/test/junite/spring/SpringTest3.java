@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
 
@@ -19,8 +20,11 @@ import java.util.Date;
  * @RunWith(Suite.class) 的话就是一套测试集合，
  */
 // junit整合spring的测试
-@RunWith(SpringJUnit4ClassRunner.class)
-// 加载核心配置文件，自动构建spring容器
+// SpringRunner 继承了SpringJUnit4ClassRunner，
+// 没有扩展任何功能；使用SpringRunner，名字简短而已
+@RunWith(SpringRunner.class)
+// @RunWith(SpringJUnit4ClassRunner.class)
+// 加载核心xml配置文件，自动构建spring容器
 @ContextConfiguration(locations="classpath:applicationContext.xml")
 public class SpringTest3 {
 

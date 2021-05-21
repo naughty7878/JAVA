@@ -8,18 +8,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
 
-/**
- * @RunWith作用
- * @RunWith 就是一个运行器
- * @RunWith(JUnit4.class) 就是指用JUnit4来运行
- * @RunWith(SpringJUnit4ClassRunner.class),让测试运行于Spring测试环境
- * @RunWith(Suite.class) 的话就是一套测试集合，
- */
 // junit整合spring的测试
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 // 导入配置类，自动构建spring容器
 @Import(SpringTest4.MyConfig.class)
 public class SpringTest4 {
