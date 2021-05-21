@@ -19,8 +19,8 @@ public class TestSentinels {
         jedisPoolConfig.setMaxIdle(5);
         jedisPoolConfig.setMinIdle(5);
         // 哨兵信息
-        Set<String> sentinels = new HashSet<String>(Arrays.asList("120.78.189.168:17107",
-                "120.78.189.168:17108","120.78.189.168:17109"));
+        Set<String> sentinels = new HashSet<String>(Arrays.asList("127.0.0.1:17107",
+                "127.0.0.1:17108","127.0.0.1:17109"));
         // 创建连接池
         JedisSentinelPool pool = new JedisSentinelPool("mymaster", sentinels,"redis123456");
         // 获取客户端
