@@ -19,10 +19,11 @@ public class ClassLoaderTest2 {
         System.out.println(classLoader);//null
 
         System.out.println("***********扩展类加载器*************");
-        String extDirs = System.getProperty("java.ext.dirs");
-        for (String path : extDirs.split(";")) {
-            System.out.println(path);
-        }
+        java.lang.String extDirs = System.getProperty("java.ext.dirs");
+        System.out.println(extDirs);
+//        for (String path : extDirs.split(":")) {
+//            System.out.println(path);
+//        }
 
         //从上面的路径中随意选择一个类,来看看他的类加载器是什么:扩展类加载器
         ClassLoader classLoader1 = CurveDB.class.getClassLoader();
