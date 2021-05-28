@@ -1,4 +1,4 @@
-package com.test.zookeeper;
+package com.test.zookeeper.base;
 
 public class MyConfig {
 

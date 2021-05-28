@@ -197,8 +197,7 @@ List subList(int fromIndex, int toIndex):返回从fromIndex到toIndex位置的�
         list.size();
         list.isEmpty();
 
-        Collections.synchronizedList()
-        list.forEach(System.out::println);
+//        Collections.synchronizedList()
 
     }
 }

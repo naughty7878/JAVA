@@ -1,5 +1,7 @@
 package com.test.nio;
 
+import org.junit.Test;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.nio.ByteBuffer;
@@ -11,7 +13,8 @@ public class BufferTest2 {
         test.test1();
     }
 
-    private void test1() {
+    @Test
+    public void test1() {
 
         // 申请一个非直接缓冲区
         ByteBuffer buffer = ByteBuffer.allocate(1024);

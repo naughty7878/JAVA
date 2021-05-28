@@ -188,6 +188,7 @@ public class ChannelTest {
                     byteBuffer.flip();
                     System.out.print(new String(byteBuffer.array(), 0, byteBuffer.limit()));
                 }
+//                System.out.println();
 
                 // 4、聚集写入
                 outRafChannel.write(bufs);

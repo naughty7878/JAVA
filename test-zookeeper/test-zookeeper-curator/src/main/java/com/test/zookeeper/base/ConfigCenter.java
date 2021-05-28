@@ -1,11 +1,8 @@
-package com.test.zookeeper;
+package com.test.zookeeper.base;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
-import org.junit.Before;
 
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
