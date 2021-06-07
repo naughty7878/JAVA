@@ -1,0 +1,15 @@
+# 项目端口
+server:
+  port: 8080
+# 项目访问路径
+  servlet:
+    context-path: /test
+
+spring:
+  redis:
+    database: 0
+    timeout: 3000
+    password: 123456
+    # 单节点模式
+    host: 127.0.0.1
+    port: 6379
