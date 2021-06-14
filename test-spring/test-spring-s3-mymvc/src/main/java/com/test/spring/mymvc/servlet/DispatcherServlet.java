@@ -195,7 +195,8 @@ public class DispatcherServlet extends HttpServlet {
             }else {
                 // 普通参数
                 // 使用注解参数名
-                paramValues[i] = parameterMap.get(parameter.getName())[0];
+                String[] vals = parameterMap.get(parameter.getName());
+                paramValues[i] = vals != null && vals.length > 0 ? vals[0] : null;
             }
         }
         return paramValues;
