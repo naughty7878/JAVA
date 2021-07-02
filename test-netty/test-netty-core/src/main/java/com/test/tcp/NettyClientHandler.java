@@ -1,4 +1,4 @@
-package com.test.test;
+package com.test.tcp;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -7,6 +7,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.CharsetUtil;
 
 public class NettyClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
+
 
     // 当从服务器接收到一条消息时被调用
     @Override
@@ -18,8 +19,10 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
     // 在到服务器的连接已建立之后将被调用
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        // 当被通知Channel是活跃的时侯，发送一条消息
-        ctx.writeAndFlush(Unpooled.copiedBuffer("Netty rocks!", CharsetUtil.UTF_8));
+        for (int i = 0; i < 10; i++) {
+            ByteBuf byteBuf = Unpooled.copiedBuffer("Hello Server " + i + "\t", CharsetUtil.UTF_8);
+            ctx.writeAndFlush(byteBuf);
+        }
     }
 
     // 在处理过程中引发异常时调用

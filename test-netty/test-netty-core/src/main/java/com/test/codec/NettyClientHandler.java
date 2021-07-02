@@ -1,4 +1,4 @@
-package com.test.nettty;
+package com.test.codec;
 
 
 import io.netty.buffer.ByteBuf;
@@ -12,7 +12,10 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         System.out.println("ctx = " + ctx);
-        ctx.writeAndFlush(Unpooled.copiedBuffer("Hello，服务器～", CharsetUtil.UTF_8));
+
+        //发生一个Student 对象到服务器
+        StudentPOJO.Student student = StudentPOJO.Student.newBuilder().setId(4).setName("智多星 吴用").build();
+        ctx.writeAndFlush(student);
 //        super.channelActive(ctx);
     }
 

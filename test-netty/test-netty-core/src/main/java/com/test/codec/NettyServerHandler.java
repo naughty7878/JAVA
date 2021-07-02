@@ -1,8 +1,7 @@
-package com.test.nettty;
+package com.test.codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.CharsetUtil;
@@ -25,38 +24,8 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         System.out.println("ctx = " + ctx);
 
-        // 将 msg 装成一个 ByteBuf
-        // ByteBuf 是有 netty 提供的，不是NIO的ByteBuffer
-        ByteBuf buf = (ByteBuf) msg;
-        System.out.println("客户端发送的消息：" + buf.toString(CharsetUtil.UTF_8));
-        System.out.println("客户端地址：" + ctx.channel().remoteAddress());
-//        super.channelRead(ctx, msg);
-
-        // 添加任务 到 taskQueue任务队列
-        ctx.channel().eventLoop().execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(10000);
-                    ctx.writeAndFlush(Unpooled.copiedBuffer("这是候补任务消息1", CharsetUtil.UTF_8));
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        // 添加任务 到 scheduledTaskQueue任务队列
-        ctx.channel().eventLoop().schedule(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(10000);
-                    ctx.writeAndFlush(Unpooled.copiedBuffer("这是候补任务消息2", CharsetUtil.UTF_8));
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, 10, TimeUnit.SECONDS);
+        StudentPOJO.Student student = (StudentPOJO.Student) msg;
+        System.out.println("客户端发送的数据 id=" + student.getId() + " 名字=" + student.getName());
     }
 
     /**

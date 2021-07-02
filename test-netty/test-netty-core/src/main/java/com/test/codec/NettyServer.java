@@ -1,14 +1,11 @@
-package com.test.nettty;
+package com.test.codec;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.protobuf.ProtobufDecoder;
 
 /**
  * 1) 实例要求:使用IDEA创建Netty项目
@@ -38,7 +35,11 @@ public class NettyServer {
                         // 给pipeline 设置处理器
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
-                            ch.pipeline().addLast(new NettyServerHandler()); // 添加自定义处理器
+                            ChannelPipeline pipeline = ch.pipeline();
+                            //在pipeline加入ProtoBufDecoder
+                            //指定对哪种对象进行解码
+                            pipeline.addLast("decoder", new ProtobufDecoder(StudentPOJO.Student.getDefaultInstance()));
+                            pipeline.addLast(new NettyServerHandler());
                         }
                     }); // 给 workerGroup 的 EventLoop 对应的管道设置处理器
 

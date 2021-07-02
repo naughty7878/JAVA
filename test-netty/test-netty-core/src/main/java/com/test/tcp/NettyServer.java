@@ -1,4 +1,4 @@
-package com.test.test;
+package com.test.tcp;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -37,7 +37,7 @@ public class NettyServer {
                     });
 
             // 绑定端口
-            // sync()：调用sync()方法阻塞等待直到绑定完成
+            // sync()：调用sync()方法阻塞等待知道绑定完成
             ChannelFuture channelFuture = bootstrap.bind().sync();
             // 获取Channel的CloseFuture，并阻塞知道它完成
             channelFuture.channel().closeFuture().sync();

@@ -1,8 +1,9 @@
-package com.test.test;
+package com.test.tcpprotocol;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelPipeline;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -32,12 +33,15 @@ public class NettyServer {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
                             // 初始化channel时，添加处理器
-                            ch.pipeline().addLast(new NettyServerHandler());
+                            ChannelPipeline pipeline = ch.pipeline();
+                            pipeline.addLast(new MyMessageEncoder());
+                            pipeline.addLast(new MyMessageDecoder());
+                            pipeline.addLast(new NettyServerHandler());
                         }
                     });
 
             // 绑定端口
-            // sync()：调用sync()方法阻塞等待直到绑定完成
+            // sync()：调用sync()方法阻塞等待知道绑定完成
             ChannelFuture channelFuture = bootstrap.bind().sync();
             // 获取Channel的CloseFuture，并阻塞知道它完成
             channelFuture.channel().closeFuture().sync();
