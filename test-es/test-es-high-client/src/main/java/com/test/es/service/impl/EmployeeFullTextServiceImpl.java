@@ -12,6 +12,8 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
 import org.apache.http.message.BasicHeader;
 import org.apache.logging.log4j.util.Strings;
+import org.elasticsearch.action.bulk.BulkRequest;
+import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.get.GetResponse;
@@ -127,6 +129,8 @@ public class EmployeeFullTextServiceImpl implements EmployeeFullTextService {
         }
     }
 
+
+
     @Override
     public void deleteById(long id) throws IOException {
         // 1.	构建delete请求
@@ -134,6 +138,38 @@ public class EmployeeFullTextServiceImpl implements EmployeeFullTextService {
 
         // 2.	使用RestHighLevelClient执行delete请求
         restHighLevelClient.delete(deleteRequest, RequestOptions.DEFAULT);
+    }
+
+    @Override
+    public void addBatch(Employee... employees) throws IOException {
+        // 1.	构建bulkRequest请求
+        BulkRequest bulkRequest = new BulkRequest();
+
+        // 2. 添加对象
+        for (Employee employee : employees) {
+            bulkRequest.add(new IndexRequest(INDEX_EMPLOYEE).id(employee.getId() + "").source(
+                    objectMapper.writeValueAsString(employee), XContentType.JSON
+            ));
+        }
+
+        // 3.	使用RestHighLevelClient执行delete请求
+        BulkResponse bulk = restHighLevelClient.bulk(bulkRequest, RequestOptions.DEFAULT);
+        System.out.println("bulk = " + objectMapper.writeValueAsString(bulk));
+    }
+
+    @Override
+    public void deleteBatch(Employee... employees) throws IOException {
+        // 1.	构建bulkRequest请求
+        BulkRequest bulkRequest = new BulkRequest();
+
+        // 2. 添加删除对象ID
+        for (Employee employee : employees) {
+            bulkRequest.add(new DeleteRequest(INDEX_EMPLOYEE).id(employee.getId() + ""));
+        }
+
+        // 3.	使用RestHighLevelClient执行delete请求
+        BulkResponse bulk = restHighLevelClient.bulk(bulkRequest, RequestOptions.DEFAULT);
+        System.out.println("bulk = " + objectMapper.writeValueAsString(bulk));
     }
 
     @Override
@@ -352,6 +388,6 @@ public class EmployeeFullTextServiceImpl implements EmployeeFullTextService {
 
     @Override
     public void close() throws IOException {
-
+        restHighLevelClient.close();
     }
 }

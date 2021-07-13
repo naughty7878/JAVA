@@ -56,6 +56,49 @@ public class EmployeeFullTextServiceTest {
     }
 
     @Test
+    public void testAddBatch() throws IOException {
+        Employee employee1 = new Employee();
+        employee1.setId(111l);
+        employee1.setName("James11");
+        employee1.setJob("html");
+        employee1.setAge(18);
+        employee1.setSal(22000d);
+        employee1.setGender("male");
+
+        Employee employee2 = new Employee();
+        employee2.setId(112l);
+        employee2.setName("James11");
+        employee2.setJob("html");
+        employee2.setAge(18);
+        employee2.setSal(22000d);
+        employee2.setGender("male");
+
+        Employee employee3 = new Employee();
+        employee3.setId(113l);
+        employee3.setName("James11");
+        employee3.setJob("html");
+        employee3.setAge(18);
+        employee3.setSal(22000d);
+        employee3.setGender("male");
+
+        employeeFullTextService.addBatch(employee1, employee2, employee3);
+    }
+
+    @Test
+    public void testDeleteBatch() throws IOException {
+        Employee employee1 = new Employee();
+        employee1.setId(111l);
+
+        Employee employee2 = new Employee();
+        employee2.setId(112l);
+
+        Employee employee3 = new Employee();
+        employee3.setId(113l);
+
+        employeeFullTextService.deleteBatch(employee1, employee2, employee3);
+    }
+
+    @Test
     public void testSearchByKeywords() throws IOException {
         List<Employee> employees = employeeFullTextService.searchByKeywords("html");
         for (Employee employee : employees) {

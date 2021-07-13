@@ -20,6 +20,10 @@ public interface EmployeeFullTextService {
     // 根据ID删除指定位置数据
     void deleteById(long id) throws IOException;
 
+    void addBatch(Employee... employees) throws IOException;
+
+    void deleteBatch(Employee... employees) throws IOException;
+
     // 根据关键字检索数据
     List<Employee> searchByKeywords(String keywords) throws IOException;
 
