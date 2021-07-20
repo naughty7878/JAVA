@@ -16,6 +16,8 @@ public class HelloController {
     @RequestMapping("/hello")
     public void hello(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String sessionId = request.getSession().getId();
+        System.out.println("request.getSession().getAttribute(\"uid\") = " + request.getSession().getAttribute("uid"));
+        request.getSession().setAttribute("uid", "xxxx001");
         System.out.println("sessionId = " + sessionId);
         response.getWriter().println("sessionId = " + sessionId);
     }

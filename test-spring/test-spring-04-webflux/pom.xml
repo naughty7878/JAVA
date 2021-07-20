@@ -10,7 +10,6 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>test-spring-reactor</module>
-        <module>test-spring-webflux0</module>
         <module>test-spring-webflux1</module>
         <module>test-spring-webflux2</module>
     </modules>

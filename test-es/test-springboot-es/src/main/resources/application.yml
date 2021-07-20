@@ -1,0 +1,12 @@
+spring:
+  elasticsearch:
+    jest:
+      uris: http://127.0.0.1:9200
+    rest:
+      uris: http://127.0.0.1:9200
+
+
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch
+      cluster-nodes: 127.0.0.1:9300

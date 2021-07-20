@@ -46,33 +46,31 @@ public class IncreasingTriplet {
 
     // [20,100,10,12,5,13]
     // [1,5,0,4,1,3]
-    public boolean increasingTriplet(int[] nums) {
-        int first = nums[0];
-        int second = nums[0];
-        int min = nums[0];
-        for (int num : nums) {
-            if (num <= second) {
-                if (num > min) {
-                    first = min;
-                    second = num;
-                } else {
-                    min = num;
+        public boolean increasingTriplet(int[] nums) {
+            int min = Integer.MAX_VALUE;
+            int mid = Integer.MAX_VALUE;
+            for(int max : nums){
+                // 当前遍历的数，为当前遍历到的数中最小的，赋值给min
+                if(max < min) {
+                    min = max;
                 }
-            } else if (num > second) {
-                if (second > first) {
+                // max>min但是max<mid，也就是意味着mid迎来了更好的选择
+                else if (max > min && max < mid) {
+                    mid = max;
+                }
+                // mid在设定中总是大于min的，所以可以只判断max>mid
+                else if (max > mid) {
                     return true;
-                } else {
-                    first = min;
-                    second = num;
                 }
             }
+            return false;
         }
-        return false;
-    }
+
 
     public static void main(String[] args) {
         // [1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,-1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2]
-        int[] nums = {1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,-1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2};
+//        int[] nums = {1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,-1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2};
+        int[] nums = {0, 1, -1, 2};
         boolean b = new IncreasingTriplet().increasingTriplet(nums);
         System.out.println("b = " + b);
     }

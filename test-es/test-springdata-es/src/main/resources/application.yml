@@ -1,0 +1,6 @@
+spring:
+  elasticsearch:
+    rest:
+      uris: http://es.naughty7878.top
+      username: elastic
+      password: god123456

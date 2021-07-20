@@ -1,10 +1,6 @@
 # 项目端口
 server:
   port: 8080
-# 项目访问路径
-#  servlet:
-#    context-path: /test
-
 
 spring:
   redis:
