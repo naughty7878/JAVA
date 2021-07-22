@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
+
+    <!-- 持久单元，配置一个数据库连接 -->
+    <persistence-unit name="mysql-jpa">
+
+        <!--
+		配置使用什么 ORM 产品来作为 JPA 的实现
+		1. 实际上配置的是  javax.persistence.spi.PersistenceProvider 接口的实现类
+		2. 若 JPA 项目中只有一个 JPA 的实现产品, 则也可以不配置该节点.
+		-->
+<!--        <provider>org.hibernate.ejb.HibernatePersistence</provider>-->
+
+
+        <!-- DB连接四要素 -->
+        <properties>
+            <!-- 这里使用Hibernate-JPA -->
+            <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://47.106.74.177:13306/test_jpa?SSL=true"/>
+            <property name="hibernate.connection.username" value="hd"/>
+            <property name="hibernate.connection.password" value="hd123456"/>
+
+            <!-- 配置 JPA 实现产品的基本属性. 配置 hibernate 的基本属性 -->
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+        </properties>
+    </persistence-unit>
+</persistence>
