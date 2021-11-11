@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.transsnet</groupId>
+        <artifactId>ceres</artifactId>
+        <version>zeus-1.0-SNAPSHOT</version>
+    </parent>
+
+    <name>ceres-repos</name>
+    <groupId>com.transsnet.ceres</groupId>
+    <artifactId>ceres-repos</artifactId>
+    <version>zeus-1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-meta-extensions</artifactId>
+            <version>3.11.10</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
+
+            <!-- The jOOQ code generator plugin -->
+            <plugin>
+                <groupId>org.jooq</groupId>
+                <artifactId>jooq-codegen-maven</artifactId>
+
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+                <configuration>
+                    <generator>
+                        <name>com.transsnet.yan.jooq.plugin.YanJavaGenerator</name>
+                        <database>
+                            <name>org.jooq.meta.extensions.ddl.DDLDatabase</name>
+                            <properties>
+                                <property>
+                                    <key>scripts</key>
+                                    <value>${project.basedir}/src/main/resources/db.sql</value>
+                                </property>
+                                <property>
+                                    <key>sort</key>
+                                    <value>semantic</value>
+                                </property>
+                            </properties>
+                            <includes>.*</includes>
+                            <excludes></excludes>
+                        </database>
+                        <generate>
+                            <!--生成dao和pojo-->
+                            <daos>true</daos>
+                            <pojos>true</pojos>
+                            <!--把数据库时间类型映射到java 8时间类型-->
+                            <javaTimeTypes>true</javaTimeTypes>
+                            <!--<interfaces>true</interfaces>-->
+                            <!--不在生成的代码中添加spring注释，比如@Repository-->
+                            <springAnnotations>true</springAnnotations>
+                            <!--<globalObjectReferences>false</globalObjectReferences>-->
+                        </generate>
+                        <target>
+                            <packageName>com.transsnet.ceres.repos</packageName>
+                            <directory>src/main/java</directory>
+                        </target>
+                    </generator>
+                </configuration>
+
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jooq</groupId>
+                        <artifactId>jooq-meta-extensions</artifactId>
+                        <version>3.11.10</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+</project>

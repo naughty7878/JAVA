@@ -1,0 +1,17 @@
+server:
+  port: 8081
+
+# 1、使用配置文件设置用户名密码
+#spring:
+#  security:
+#    user:
+#      name: god
+#      password: god123456
+
+
+spring:
+  datasource:
+    username: hd
+    password: hd123456
+    url: jdbc:mysql://47.106.74.177:13306/test_springsecurity?allowPublicKeyRetrieval=true&useSSL=true
+    driver-class-name: com.mysql.jdbc.Driver

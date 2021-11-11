@@ -4,7 +4,7 @@ import java.util.UUID;
 
 /**
  * 对H2数据库函数的扩展
- * @author chenheng
+ * @author h__d
  * @date 2019-05-28 18:46:07
  *
  */

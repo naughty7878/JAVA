@@ -27,7 +27,7 @@ package com.level1.string;
  * 例如，数字字符串 "3322251" 的描述如下图：
  *
  *
- *  
+ *  
  *
  * 示例 1：
  *
@@ -43,7 +43,7 @@ package com.level1.string;
  * countAndSay(2) = 读 "1" = 一 个 1 = "11"
  * countAndSay(3) = 读 "11" = 二 个 1 = "21"
  * countAndSay(4) = 读 "21" = 一 个 2 + 一 个 1 = "12" + "11" = "1211"
- *  
+ *  
  *
  * 提示：
  *
