@@ -1,0 +1,6 @@
+#spring:
+#  datasource:
+#    username: hd
+#    password: hd123456
+#    url: jdbc:mysql://47.106.74.177:13306/test?allowPublicKeyRetrieval=true&useSSL=true
+#    driver-class-name: com.mysql.cj.jdbc.Driver
