@@ -24,7 +24,7 @@
 
 		<!-- Tool -->
 		<!-- jackson json包 -->
-		<jackson-databind.version>2.9.7</jackson-databind.version>
+		<jackson-databind.version>2.9.10.7</jackson-databind.version>
 		<jackson-core.version>2.9.7</jackson-core.version>
 		<jackson-annotations.version>2.9.7</jackson-annotations.version>
 
