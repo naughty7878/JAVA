@@ -14,7 +14,7 @@
 		<spring.version>5.1.4.RELEASE</spring.version>
 
 		<!-- Mybatis -->
-		<mybatis.version>3.5.0</mybatis.version>
+		<mybatis.version>3.5.6</mybatis.version>
 		<!-- Mybatis 整合 Spring -->
 		<mybatis-spring.version>2.0.0</mybatis-spring.version>
 
