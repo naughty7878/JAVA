@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: jdbc:mysql://47.106.74.177:13306/test_jpa?allowPublicKeyRetrieval=true&useSSL=true
+    url: jdbc:mysql://127.0.0.1:3306/test_jpa?allowPublicKeyRetrieval=true&useSSL=true
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: hd
-    password: hd123456
+    username: root
+    password: 123456
 
   jpa:
     hibernate:

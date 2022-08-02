@@ -12,7 +12,7 @@ spring:
     timeout: 3000
     password: 123456
     # 单节点模式
-    host: 47.106.74.177
+    host: 127.0.0.1
     port: 16379
 
     # 哨兵模式

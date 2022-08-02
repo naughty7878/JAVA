@@ -27,7 +27,7 @@ public class TestJdom  {
         //根元素
         Element root = new Element("conpany"); 
         //设置属性
-        root.setAttribute("name","hd");
+        root.setAttribute("name","root");
         //添加根目录
         document.setRootElement(root);
         

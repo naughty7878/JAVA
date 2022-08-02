@@ -17,8 +17,8 @@ public class TestJDBC3 {
         Class.forName("com.mysql.cj.jdbc.Driver");
 
         //2: 得到联接对象  connection
-        String url = "jdbc:mysql://47.106.74.177:13306/test_mybatis?allowPublicKeyRetrieval=true&useSSL=true";
-        Connection con = DriverManager.getConnection(url, "hd", "hd123456");
+        String url = "jdbc:mysql://127.0.0.1:3306/test_mybatis?allowPublicKeyRetrieval=true&useSSL=true";
+        Connection con = DriverManager.getConnection(url, "root", "123456");
 
         // 事务的隔离级别
         int transactionIsolation = con.getTransactionIsolation();

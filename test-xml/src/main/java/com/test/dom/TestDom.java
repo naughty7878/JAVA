@@ -50,7 +50,7 @@ public class TestDom {
 			//创建根目录节点
 			Element root = doc.createElement("conpany");
 			//设置节点属性
-			root.setAttribute("name", "hd");
+			root.setAttribute("name", "root");
 			//添加根节点
 			doc.appendChild(root);
 			

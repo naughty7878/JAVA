@@ -81,17 +81,17 @@ public class ShardingMasterSlaveTest {
         // 配置第 1 个数据源
         HikariDataSource dataSource1 = new HikariDataSource();
         dataSource1.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource1.setJdbcUrl("jdbc:mysql://47.106.74.177:13306/test_master_slave?allowPublicKeyRetrieval=true&useSSL=true");
+        dataSource1.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/test_master_slave?allowPublicKeyRetrieval=true&useSSL=true");
         dataSource1.setUsername("hd");
-        dataSource1.setPassword("hd123456");
+        dataSource1.setPassword("123456");
         dataSourceMap.put("ds0", dataSource1);
 
         // 配置第 2 个数据源
         HikariDataSource dataSource2 = new HikariDataSource();
         dataSource2.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource2.setJdbcUrl("jdbc:mysql://120.78.189.168:13306/test_master_slave?allowPublicKeyRetrieval=true&useSSL=true");
+        dataSource2.setJdbcUrl("jdbc:mysql://120.78.189.168:3306/test_master_slave?allowPublicKeyRetrieval=true&useSSL=true");
         dataSource2.setUsername("hd");
-        dataSource2.setPassword("hd123456");
+        dataSource2.setPassword("123456");
         dataSourceMap.put("ds1", dataSource2);
 
 

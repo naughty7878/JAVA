@@ -16,9 +16,9 @@
         <properties>
             <!-- 这里使用Hibernate-JPA -->
             <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="hibernate.connection.url" value="jdbc:mysql://47.106.74.177:13306/test_jpa?SSL=true"/>
-            <property name="hibernate.connection.username" value="hd"/>
-            <property name="hibernate.connection.password" value="hd123456"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://127.0.0.1:3306/test_jpa?SSL=true"/>
+            <property name="hibernate.connection.username" value="root"/>
+            <property name="hibernate.connection.password" value="123456"/>
 
             <!-- 配置 JPA 实现产品的基本属性. 配置 hibernate 的基本属性 -->
             <property name="hibernate.format_sql" value="true"/>
